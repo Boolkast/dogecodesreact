@@ -22,6 +22,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
 import classNames from 'classnames';
+import MessageList from "./messageList";
+import AvatarComponent from "./avatar";
 
 const drawerWidth = 320;
 
@@ -87,14 +89,14 @@ const styles = theme => ({
 
 function PermanentDrawerLeft(props) {
   const { classes } = props;
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+          <AvatarComponent name={props.chatname} />
           <Typography variant="h6" color="inherit" noWrap>
-            Boolka Chat
+            {props.chatname}
           </Typography>
           <div className={classes.right}>
             <IconButton className={classes.button} aria-label="Person">
@@ -114,6 +116,7 @@ function PermanentDrawerLeft(props) {
         <div className={classes.toolbar} />
         <Divider />
         <div className={classes.chatlist} />
+        
         <AppBar
           position="static"
           color="inherit"
@@ -139,31 +142,7 @@ function PermanentDrawerLeft(props) {
           </Tabs>
         </AppBar>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <div className={classes.messageWrapper}>
-          <Paper className={classes.messages}>
-            <Typography variant="h5" component="h3">
-              This is a sheet of paper.
-            </Typography>
-            <Typography component="p">
-              Paper can be used to build surface or other elements for your
-              application.
-            </Typography>
-          </Paper>
-        </div>
-        <div className={classNames(classes.messageWrapper, classes.messageWrappperFromMe)}>
-          <Paper className={classes.messages, classes.messageFromMe}>
-            <Typography variant="h5" component="h3">
-              This is a sheet of paper.
-            </Typography>
-            <Typography component="p">
-              Paper can be used to build surface or other elements for your
-              application.
-            </Typography>
-          </Paper>
-        </div>
-      </main>
+      <MessageList messages={props.messages} />
     </div>
   );
 }
