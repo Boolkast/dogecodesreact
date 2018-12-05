@@ -25,12 +25,26 @@ class App extends Component {
     ]
 
     this.chatname = "Boolka kekosikus"
+    this.chatlist = [
+      {
+        name: "boolker",
+        last_update: new Date()
+      },
+      {
+        name: "boolkerdwadwdwdwdwdwdwdwd1111",
+        last_update: new Date()
+      },
+      {
+        name: "awdwadawboolker",
+        last_update: new Date(2018, 10, 30)
+      },
+    ]
   }
 
   render() {
     return (
       <div>
-        <PermanentDrawerLeft messages={this.messages} chatname={this.chatname}/>
+        <PermanentDrawerLeft messages={this.messages} chatname={this.chatname} chatlist={this.chatlist}/>
       </div>
     );
   }

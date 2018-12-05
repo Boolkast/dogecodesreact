@@ -24,6 +24,7 @@ import Paper from "@material-ui/core/Paper";
 import classNames from 'classnames';
 import MessageList from "./messageList";
 import AvatarComponent from "./avatar";
+import ChatList from "./chatList";
 
 const drawerWidth = 320;
 
@@ -115,8 +116,10 @@ function PermanentDrawerLeft(props) {
       >
         <div className={classes.toolbar} />
         <Divider />
-        <div className={classes.chatlist} />
+        <div className={classes.chatlist} >
         
+          <ChatList chatlist={props.chatlist} />
+        </div>
         <AppBar
           position="static"
           color="inherit"
