@@ -31,7 +31,7 @@ class App extends Component {
         last_update: new Date()
       },
       {
-        name: "boolkerdwadwdwdwdwdwdwdwd1111",
+        name: "boolkerdwadwdw",
         last_update: new Date()
       },
       {
