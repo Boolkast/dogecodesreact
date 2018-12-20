@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PermanentDrawerLeft from "./components/drawerSideBar";
+import PermanentDrawerLeft from "./components/Drawer/drawerSideBar";
 
 class App extends Component {
 

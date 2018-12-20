@@ -1,14 +1,8 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-
-const styles = theme => ({
-  purpleAvatar: {
-    margin: 10,
-    color: "#fff",
-    backgroundColor: "#FF4444"
-  }
-});
+import { styles } from "./style";
+import colorFrom from "../../utils/colors"
 
 function AvatarComponent(props) {
   const { classes } = props;
@@ -21,8 +15,8 @@ function AvatarComponent(props) {
     .forEach(s => {
       sym = sym + s;
     });
-
-  return <Avatar className={classes.purpleAvatar}>{sym}</Avatar>;
+  
+  return <Avatar className={classes.purpleAvatar} style={{backgroundColor: colorFrom(props.name)}}>{sym}</Avatar>;
 }
 
 export default withStyles(styles)(AvatarComponent);

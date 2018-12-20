@@ -1,22 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import AvatarComponent from "./avatar";
-
-const styles = theme => ({
-    chatItem: {
-      display: "flex",
-      width: `100%`,
-      height: `60px`,
-    },
-    info: {
-        height: `100%`,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        flex: 1,
-
-    },
-  });
+import AvatarComponent from "../Avatar/avatar";
+import { styles } from "./style";
 
 function ChatList(props) {
     const { classes } = props;
@@ -30,8 +15,8 @@ function ChatList(props) {
                         <div key={i} className={classes.chatItem}>
                             <AvatarComponent name={chat.name} />
                             <div className={classes.info}>
-                                <p className={classes.noMarginBottom}>{chat.name}</p>
-                                <p className={classes.noMarginTop}>{update_label}</p>
+                                <p className={classes.infoItem}>{chat.name}</p>
+                                
                             </div>
                         </div>
 
