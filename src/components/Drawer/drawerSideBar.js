@@ -16,9 +16,13 @@ import MessageList from "../MessageList/messageList";
 import AvatarComponent from "../Avatar/avatar";
 import ChatList from "../ChatList/chatList";
 import { styles } from "./style";
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 function PermanentDrawerLeft(props) {
   const { classes } = props;
+
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -43,7 +47,17 @@ function PermanentDrawerLeft(props) {
         }}
         anchor="left"
       >
-        <div className={classes.toolbar} />
+      <div className={classes.toolbar}>
+        <div className={classes.search}>
+            <InputBase
+              placeholder="Search chats…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              />
+          </div>
+      </div>
         <Divider />
         <div className={classes.chatlist} >
         
