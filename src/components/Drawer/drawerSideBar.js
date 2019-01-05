@@ -18,25 +18,32 @@ import ChatList from "../ChatList/chatList";
 import { styles } from "./style";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import { connect } from "react-redux";
 
 function PermanentDrawerLeft(props) {
   const { classes } = props;
 
-  
+console.log(props)
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <AvatarComponent name={props.chatname} />
-          <Typography variant="h6" color="inherit" noWrap>
-            {props.chatname}
-          </Typography>
-          <div className={classes.right}>
-            <IconButton className={classes.button} aria-label="Person">
-              <Person />
-            </IconButton>
-          </div>
+          {
+            props.state.activeChat && (
+              <>
+                <AvatarComponent name={props.chatname} />
+                <Typography variant="h6" color="inherit" noWrap>
+                  {props.chatname}
+                </Typography>
+                <div className={classes.right}>
+                  <IconButton className={classes.button} aria-label="Person">
+                    <Person />
+                  </IconButton>
+                </div>
+              </>
+            )
+          }
         </Toolbar>
       </AppBar>
       <Drawer
@@ -47,21 +54,21 @@ function PermanentDrawerLeft(props) {
         }}
         anchor="left"
       >
-      <div className={classes.toolbar}>
-        <div className={classes.search}>
+        <div className={classes.toolbar}>
+          <div className={classes.search}>
             <InputBase
               placeholder="Search chats…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              />
+            />
           </div>
-      </div>
+        </div>
         <Divider />
         <div className={classes.chatlist} >
-        
-          <ChatList chatlist={props.chatlist} />
+
+          <ChatList chatlist={props.state.user.chats} />
         </div>
         <AppBar
           position="static"
@@ -88,9 +95,11 @@ function PermanentDrawerLeft(props) {
           </Tabs>
         </AppBar>
       </Drawer>
-      <MessageList messages={props.messages} />
+      <MessageList messages={[]} />
     </div>
   );
 }
 
-export default withStyles(styles)(PermanentDrawerLeft);
+export default connect(
+  state => ({ state: state})
+)(withStyles(styles)(PermanentDrawerLeft));

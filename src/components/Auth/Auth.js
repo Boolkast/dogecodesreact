@@ -9,8 +9,11 @@ import Button from '@material-ui/core/Button';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-class Auth extends Component {
+import { connect } from "react-redux";
+import { logIn } from "../../redux/actions";
+import { Redirect } from "react-router-dom";
 
+class Auth extends Component {
 
     state = {
         tab: 0,
@@ -39,17 +42,10 @@ class Auth extends Component {
     }
 
     submitLogin = () => {
-        fetch("http://localhost:8000/v1/login", { 
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: this.state.login,
-                password: this.state.password
-            })
-        }).then( (r) => r.json()).then( r=> console.log(r)).catch( e => console.log(e))
+        this.props.logIn(this.state.login, this.state.password)
+        .then( r => {
+
+        })
     }
 
     handleChange = (key, value) => {
@@ -57,10 +53,13 @@ class Auth extends Component {
     };
 
     render() {
+        console.log(this.props)
         const { classes } = this.props;
-
         return (
             <>
+            {
+                this.props.state.isAuth && <Redirect to="/chat" />
+            }
             <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
@@ -128,4 +127,7 @@ class Auth extends Component {
     }
 }
 
-export default withStyles(styles)(Auth);
+export default connect(
+    state => ({ state: state}),
+    { logIn }
+)(withStyles(styles)(Auth));
