@@ -11,7 +11,7 @@ export default async function http(url, method, query, token) {
     let URL = baseUrl+url;
     if (method == "POST") {
         settings.body = JSON.stringify({
-            ...query
+            ...query,
         })
     } else {
         URL+='?';

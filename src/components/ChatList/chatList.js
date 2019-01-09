@@ -5,17 +5,18 @@ import { styles } from "./style";
 
 function ChatList(props) {
     const { classes } = props;
+    const source = props.type == 0 ? props.chatlist.myIds : props.chatlist.allIds;
     return (
         <React.Fragment>
             {
-                props.chatlist &&
-                props.chatlist.map( (chat, i) => {
+                source &&
+                source.map( (chat, i) => {
+                    const gettedChat = props.chatlist.byIds[chat]
                     return (
                         <div key={i} className={classes.chatItem}>
-                            <AvatarComponent name={chat.name} />
+                            <AvatarComponent name={gettedChat.title} />
                             <div className={classes.info}>
-                                <p className={classes.infoItem}>{chat.name}</p>
-                                
+                                <p className={classes.infoItem}>{gettedChat.title}</p>
                             </div>
                         </div>
 

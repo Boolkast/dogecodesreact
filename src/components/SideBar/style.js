@@ -4,7 +4,7 @@ const drawerWidth = 320;
 export const styles = theme => ({
     drawer: {
         width: drawerWidth,
-        flexShrink: 0
+        flexShrink: 0,
     },
     drawerPaper: {
         width: drawerWidth

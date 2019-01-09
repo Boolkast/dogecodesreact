@@ -6,7 +6,7 @@ import ChatPage from '../components/ChatPage/ChatPage';
 
 const mapStateToProps = state => {
     return ({
-    chats: fromChats.getByIds(state.chats, state.chat.allIds)
+    chats: fromChats.getByIds(state.chat, state.chat.allIds)
 })};
 
 const mapDispatchToProps = dispatch => bindActionCreators({

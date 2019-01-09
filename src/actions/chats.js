@@ -96,3 +96,90 @@ export function setActiveChat(id) {
             })
     }
 }
+
+
+export function createChat(title) {
+    return (dispatch, getState) => {
+        const { token } = getState().auth;
+
+        dispatch({
+            type: types.CREATE_CHAT_REQUEST
+        })
+
+        return http('/chats', 'POST', title, token)
+        .then( r => r.json())
+        .then( r => {
+            console.log(r)
+            if (r.success) {
+                dispatch({
+                    type: types.CREATE_CHAT_FULFILLED,
+                    payload: r
+                })
+            }
+        })
+        .catch( e => console.log(e))
+    }
+}
+export function joinChat(id) {
+    return (dispatch, getState) => {
+        const { token } = getState().auth;
+
+        dispatch({
+            type: types.JOIN_CHAT_REQUEST
+        })
+
+        return http(`/chats/${id}/join`, 'GET', null, token)
+        .then( r => r.json())
+        .then( r => {
+            if (r.success) {
+                dispatch({
+                    type: types.JOIN_CHAT_FULFILLED,
+                    payload: r
+                })
+            }
+        })
+        .catch( e => console.log(e))
+    }
+}
+export function leaveChat(id) {
+    return (dispatch, getState) => {
+        const { token } = getState().auth;
+
+        dispatch({
+            type: types.LEAVE_CHAT_REQUEST
+        })
+
+        return http(`/chats/${id}/leave`, 'GET', null, token)
+        .then( r => r.json())
+        .then( r => {
+            if (r.success) {
+                dispatch({
+                    type: types.LEAVE_CHAT_FULFILLED,
+                    payload: r
+                })
+            }
+        })
+        .catch( e => console.log(e))
+    }
+}
+export function deleteChat(id) {
+    return (dispatch, getState) => {
+        const { token } = getState().auth;
+
+        dispatch({
+            type: types.DELETE_CHAT_REQUEST
+        })
+
+        return http(`/chats/${id}`, 'DELETE', null, token)
+        .then( r => r.json())
+        .then( r => {
+            if (r.success) {
+                dispatch({
+                    type: types.DELETE_CHAT_FULFILLED,
+                    payload: r
+                })
+            }
+        })
+        .catch( e => console.log(e))
+    }
+}
