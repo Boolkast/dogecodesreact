@@ -10,7 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { logIn } from "../../redux/actions";
+import { logIn } from "../../actions/auth";
 import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
@@ -43,9 +43,6 @@ class Auth extends Component {
 
     submitLogin = () => {
         this.props.logIn(this.state.login, this.state.password)
-        .then( r => {
-
-        })
     }
 
     handleChange = (key, value) => {
@@ -53,12 +50,11 @@ class Auth extends Component {
     };
 
     render() {
-        console.log(this.props)
         const { classes } = this.props;
         return (
             <>
             {
-                this.props.state.isAuth && <Redirect to="/chat" />
+                this.props.state.auth.isAuth && <Redirect to="/chat" />
             }
             <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>

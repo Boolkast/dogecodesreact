@@ -1,2 +1,0 @@
-export const AUTH_FULFILLED = "AUTH_FULFILLED";
-export const AUTH_REJECT = "AUTH_REJECT";

@@ -8,9 +8,8 @@ function ChatList(props) {
     return (
         <React.Fragment>
             {
+                props.chatlist &&
                 props.chatlist.map( (chat, i) => {
-                    const update_label = +new Date() - (+chat.last_update)
-                    console.log(update_label)
                     return (
                         <div key={i} className={classes.chatItem}>
                             <AvatarComponent name={chat.name} />

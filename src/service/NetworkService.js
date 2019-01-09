@@ -1,20 +1,8 @@
-// fetch("http://localhost:8000/v1/login", { 
-//     method: "POST",
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//         username: log,
-//         password: pass
-//     })
-// }).then( (r) => r.json())
-// .then( r=> console.log(r))
-// .catch( e => console.log(e))
-export default async function http(url, method, query) {
+export default async function http(url, method, query, token) {
     const baseUrl = "http://localhost:8000/v1";
     const settings = {
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },

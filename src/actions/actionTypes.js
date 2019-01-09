@@ -1,0 +1,24 @@
+export const AUTH_FULFILLED = Symbol("AUTH_FULFILLED");
+export const AUTH_REJECT = Symbol("AUTH_REJECT");
+
+export const LOGOUT_FULFILLED = Symbol("LOGOUT_FULFILLED");
+
+export const RECIEVE_AUTH_FULFILLED = Symbol("RECIEVE_AUTH_FULFILLED");
+export const RECIEVE_AUTH_REJECT = Symbol("RECIEVE_AUTH_REJECT");
+
+export const REDIRECT = Symbol("REDIRECT");
+
+export const FETCH_MY_CHATS_REQUEST = Symbol("FETCH_MY_CHATS");
+export const FETCH_MY_CHATS_FULFILLED = Symbol("FETCH_MY_CHATS");
+export const FETCH_MY_CHATS_REJECT = Symbol("FETCH_MY_CHATS");
+
+export const FETCH_ALL_CHATS_REQUEST = Symbol("FETCH_ALL_CHATS_REQUEST");
+export const FETCH_ALL_CHATS_FULFILLED = Symbol("FETCH_ALL_CHATS_FULFILLED");
+export const FETCH_ALL_CHATS_REJECT = Symbol("FETCH_ALL_CHATS_REJECT");
+
+export const SET_ACTIVE_CHAT = Symbol("SET_ACTIVE_CHAT");
+export const UNSET_ACTIVE_CHAT = Symbol("UNSET_ACTIVE_CHAT");
+
+export const FETCH_CHAT_REQUEST = Symbol("FETCH_CHAT_REQUEST");
+export const FETCH_CHAT_FULFILLED = Symbol("FETCH_CHAT_FULFILLED");
+export const FETCH_CHAT_REJECT = Symbol("FETCH_CHAT_REJECT");

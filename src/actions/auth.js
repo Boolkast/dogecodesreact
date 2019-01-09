@@ -40,3 +40,29 @@ export const register = (log, pass) => async (dispatch, getState) => {
         })
         .catch(e => console.log(e))
 }
+
+export function recieveAuth() {
+    return ( dispatch, getState) => {
+        const { token } = getState().auth;
+
+        if (!token) {
+            dispatch({
+                type: TYPE.RECIEVE_AUTH_REJECT
+            })
+            return;
+        }
+
+        return http('/users/me', 'GET', null, token)
+        .then( r => r.json())
+        .then( r => dispatch({
+            type: TYPE.AUTH_FULFILLED,
+            payload: r
+        }))
+        .catch( e => {
+            dispatch({
+                type: TYPE.RECIEVE_AUTH_REJECT,
+                payload: e
+            })
+        })
+    }
+}

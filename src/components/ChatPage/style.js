@@ -20,10 +20,6 @@ export const styles = theme => ({
   tabContainer: {
     height: "56px"
   },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0
