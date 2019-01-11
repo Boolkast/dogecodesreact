@@ -4,8 +4,12 @@ import { redirect } from "./services";
 
 export function fetchMyChats() {
     return (dispatch, getState) => {
-        const { token } = getState().auth;
+        const { isFetching } = getState().services;
+        if (isFetching.myChats) {
+          return Promise.resolve();
+        }
 
+        const { token } = getState().auth;
         dispatch({
             type: types.FETCH_MY_CHATS_REQUEST,
         });
@@ -13,7 +17,6 @@ export function fetchMyChats() {
         return http('/chats/my', "GET", "", token)
             .then(r => r.json())
             .then(r => {
-                console.log(r)
                 dispatch({
                     type: types.FETCH_MY_CHATS_FULFILLED,
                     payload: r
@@ -30,6 +33,11 @@ export function fetchMyChats() {
 
 export function fetchAllChats() {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+
+        if (isFetching.allChats) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({
@@ -55,6 +63,11 @@ export function fetchAllChats() {
 
 export function fetchChat(id) {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+
+        if (isFetching.chat) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({
@@ -63,7 +76,6 @@ export function fetchChat(id) {
         return http(`/chats/${id}`, "GET", null, token)
             .then(r => r.json())
             .then(r => {
-                console.log(r)
                 dispatch({
                     type: types.FETCH_CHAT_FULFILLED,
                     payload: r
@@ -89,12 +101,12 @@ export function setActiveChat(id) {
                         type: types.UNSET_ACTIVE_CHAT
                     })
                 }
-                dispatch(redirect(`/chat/${id}`))
-
+                
                 dispatch({
                     type: types.SET_ACTIVE_CHAT,
                     payload: r
                 })
+                dispatch(redirect(`/chat/${r.chat._id}`))
             })
     }
 }
@@ -102,6 +114,11 @@ export function setActiveChat(id) {
 
 export function createChat(title) {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+
+        if (isFetching.createChat) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({
@@ -111,7 +128,6 @@ export function createChat(title) {
         return http('/chats', 'POST', title, token)
         .then( r => r.json())
         .then( r => {
-            console.log(r)
             if (r.success) {
                 dispatch({
                     type: types.CREATE_CHAT_FULFILLED,
@@ -123,8 +139,14 @@ export function createChat(title) {
         .catch( e => console.log(e))
     }
 }
-export function joinChat(id) {
+export function joinChat() {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+        const id = getState().chat.activeId
+        console.log(id)
+        if (isFetching.joinChat) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({
@@ -134,6 +156,7 @@ export function joinChat(id) {
         return http(`/chats/${id}/join`, 'GET', null, token)
         .then( r => r.json())
         .then( r => {
+            console.log(r)
             if (r.success) {
                 dispatch({
                     type: types.JOIN_CHAT_FULFILLED,
@@ -147,6 +170,11 @@ export function joinChat(id) {
 }
 export function leaveChat(id) {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+
+        if (isFetching.leaveChat) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({
@@ -168,6 +196,11 @@ export function leaveChat(id) {
 }
 export function deleteChat(id) {
     return (dispatch, getState) => {
+        const { isFetching } = getState().services;
+
+        if (isFetching.deleteChat) {
+          return Promise.resolve();
+        }
         const { token } = getState().auth;
 
         dispatch({

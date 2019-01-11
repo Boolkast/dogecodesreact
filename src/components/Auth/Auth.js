@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { logIn, register } from "../../actions/auth";
 import { Redirect } from "react-router-dom";
+import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
 
 class Auth extends Component {
 
@@ -19,15 +20,35 @@ class Auth extends Component {
         tab: 0,
         login: '',
         password: '',
-        confPassword: ''
+        confPassword: '',
+        isPassComplete: true,
+        isLoginComplete: true
     };
 
     submitRegister = () => {
-        this.props.register(this.state.login, this.state.password)
+        if (this.state.password === this.state.confPassword) {
+            if (this.state.login.length !== 0) {
+                this.props.register(this.state.login, this.state.password)
+                this.setState({isLoginComplete: true, isPassComplete: true})
+            } else {
+                this.setState({isLoginComplete: false})
+            }
+        } else {
+            this.setState({isPassComplete: false})
+        }
     }
 
     submitLogin = () => {
-        this.props.logIn(this.state.login, this.state.password)
+        if (this.state.password.length !== 0) {
+            if (this.state.login.length !== 0) {
+                this.props.logIn(this.state.login, this.state.password)
+                this.setState({isLoginComplete: true, isPassComplete: true})
+            } else {
+                this.setState({isLoginComplete: false})
+            }
+        } else {
+            this.setState({isPassComplete: false})
+        }
     }
 
     handleChange = (key, value) => {
@@ -69,6 +90,7 @@ class Auth extends Component {
                             id="standard-name"
                             label="Name"
                             className={classes.input}
+                            error={!this.state.isLoginComplete}
                             value={this.state.name}
                             onChange={(e) => this.handleChange('login', e.target.value)}
                             margin="normal"
@@ -78,6 +100,7 @@ class Auth extends Component {
                             label="Password"
                             className={classes.input}
                             type="password"
+                            error={!this.state.isPassComplete}
                             autoComplete="current-password"
                             value={this.state.password}
                             onChange={(e) => this.handleChange('password', e.target.value)}
@@ -91,6 +114,7 @@ class Auth extends Component {
                             label="Repeat password"
                             className={classes.input}
                             type="password"
+                            error={!this.state.isPassComplete}
                             autoComplete="current-password"
                             value={this.state.confPassword}
                             onChange={(e) => this.handleChange('confPassword', e.target.value)}
@@ -103,6 +127,7 @@ class Auth extends Component {
                     </Paper>
                 </div>
             </div>
+            <ErrorSnackbar error={this.props.state.services.errors.auth}></ErrorSnackbar>
             </>
         );
     }

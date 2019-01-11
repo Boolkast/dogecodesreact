@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import AvatarComponent from "../Avatar/avatar";
 import Typography from "@material-ui/core/Typography";
 import UserMenu from "../UserMenu/UserMenu";
+import ChatMenu from '../ChatMenu/ChatMenu';
 
 function AppBarComponent(props) {
   const { classes } = props;
@@ -21,11 +22,17 @@ function AppBarComponent(props) {
                 <AvatarComponent name={props.activeChat.title} />
                 <Typography variant="h6" color="inherit" noWrap>
                   {props.activeChat.title}
+                  <ChatMenu
+                    disabled={!props.isConnected}
+                    activeUser={props.activeUser}
+                    onLeaveClick={() => props.leaveChat(props.activeChat._id)}
+                    onDeleteClick={() => props.deleteChat(props.activeChat._id)}
+                  />
                 </Typography>
               </>
             )
           }
-          <UserMenu logout={props.logout}/>
+          <UserMenu logout={props.logout} disabled={!props.isConnected}/>
         </Toolbar>
       </AppBar>
     </>

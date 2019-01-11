@@ -7,6 +7,7 @@ import SocketIOClient from 'socket.io-client';
 export function missingSocketConnection() {
     return {
         type: TYPE.SOCKET_MISSING_CONNECTION,
+        payload: new Error('Missong connection')
     }
 }
 
@@ -14,6 +15,11 @@ let socket = null;
 
 export function socketsConnect() {
   return (dispatch, getState) => {
+    const { isFetching } = getState().services;
+
+    if (isFetching.sockets) {
+      return Promise.resolve();
+    }
     const state = getState();
     const { token } = state.auth;
 
@@ -27,20 +33,20 @@ export function socketsConnect() {
 
     socket.on('connect', () => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_SUCCESS,
+        type: types.SOCKETS_CONNECTION_FULFILLED,
       });
     });
 
     socket.on('error', (error) => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_FAILURE,
+        type: types.SOCKETS_CONNECTION_REJECT,
         payload: new Error(`Connection: ${error}`),
       });
     });
 
     socket.on('connect_error', () => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_FAILURE,
+        type: types.SOCKETS_CONNECTION_REJECT,
         payload: new Error('We have lost a connection :('),
       });
     });
@@ -60,7 +66,7 @@ export function socketsConnect() {
     });
 
     socket.on('deleted-chat', ({ chat }) => {
-      const { activeId } = getState().chats;
+      const { activeId } = getState().chat;
 
       dispatch({
         type: types.RECIEVE_DELETED_CHAT,

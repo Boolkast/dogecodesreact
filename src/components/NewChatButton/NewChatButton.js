@@ -45,6 +45,7 @@ class NewChatButton extends React.Component {
         return (
             <>
                 <Button
+                    disabled={this.props.disabled}
                     onClick={() => this.setState({ modal: true })}
                     className={this.props.classes.button}
                     color="primary"

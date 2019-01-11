@@ -2,21 +2,22 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { styles } from "./style";
 import ChatListItem from "../ChatListItem/ChatListItem";
+import List from '@material-ui/core/List';
 
 function ChatList(props) {
     const { classes } = props;
-    const source = props.type == 0 ? props.chatlist.myIds : props.chatlist.allIds;
     return (
         <React.Fragment>
+            <List>
             {
-                source &&
-                source.map( (chat, i) => {
-                    const gettedChat = props.chatlist.byIds[chat]
+                props.chatlist &&
+                props.chatlist.map( (chat, i) => {
                     return (
-                        <ChatListItem indx={i} title={gettedChat.title} id={gettedChat._id} setActiveChat={props.setActiveChat}/>
+                        <ChatListItem disabled={!props.isConnected} indx={i} title={chat.title} id={chat._id} setActiveChat={props.setActiveChat}/>
                     )
                 })
             }
+            </List>
         </React.Fragment>
     )
 }

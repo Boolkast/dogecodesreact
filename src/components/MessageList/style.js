@@ -28,5 +28,8 @@ export const styles = theme => ({
   right: {
     position: "absolute",
     right: 0,
+  },
+  messagesContainer: {
+    marginBottom: "50px"
   }
 });

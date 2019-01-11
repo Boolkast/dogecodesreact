@@ -19,6 +19,7 @@ class UserMenu extends React.Component {
             <>
                 <div className={classes.right}>
                     <IconButton 
+                    disabled={this.props.disabled}
                     className={classes.button} 
                     aria-label="Person" 
                     onClick={ (e) => this.setState({anchor: e.currentTarget})}

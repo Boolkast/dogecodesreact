@@ -1,6 +1,8 @@
 import auth from './authReducer';
 import messages from './messageReducer';
 import chat from "./chatReducer";
+import services from "./servicesReducer";
+
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from "redux-thunk";
 import logger from "redux-logger";
@@ -9,7 +11,8 @@ function configureStore() {
     const reducer = combineReducers({
         auth,
         chat,
-        messages
+        messages,
+        services
     })
 
     if (process.env.NODE_ENV === "production") {

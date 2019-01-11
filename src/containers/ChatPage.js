@@ -17,6 +17,7 @@ const mapStateToProps = state => {
         },
         activeUser: {
             ...state.auth.user,
+            test: "testestes",
             isMember: fromState.isMember(state, activeChat),
             isCreator: fromState.isCreator(state, activeChat),
             isChatMember: fromState.isChatMember(state, activeChat),

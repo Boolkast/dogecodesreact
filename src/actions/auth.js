@@ -2,6 +2,11 @@ import http from "../service/NetworkService";
 import * as TYPE from "./actionTypes";
 
 export const logIn = (log, pass) => async (dispatch, getState) => {
+    const { isFetching } = getState().services;
+
+    if (isFetching.login) {
+        return Promise.resolve();
+    }
     const username = log
     const password = pass
     const r = await http("/login", "POST", { username, password })
@@ -16,12 +21,27 @@ export const logIn = (log, pass) => async (dispatch, getState) => {
                     }
                 });
                 localStorage.setItem("token", r.token)
+            } else {
+                dispatch({
+                    type: TYPE.AUTH_REJECT,
+                    payload: r.message
+                })
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            dispatch({
+                type: TYPE.AUTH_REJECT,
+                payload: e
+            })
+        })
 }
 
 export const logout = () => async (dispatch, getState) => {
+    const { isFetching } = getState().services;
+
+    if (isFetching.logout) {
+        return Promise.resolve();
+    }
     const { token } = getState().auth;
 
     const r = await http("/logout", "GET", null, token)
@@ -39,13 +59,17 @@ export const logout = () => async (dispatch, getState) => {
 }
 
 export const register = (log, pass) => async (dispatch, getState) => {
+    const { isFetching } = getState().services;
+
+    if (isFetching.redister) {
+        return Promise.resolve();
+    }
     const username = log
     const password = pass
     const r = await http("/signup", "POST", { username, password })
         .then(r => r.json())
         .then(r => {
             if (r.success) {
-                console.log(r)
                 dispatch({
                     type: TYPE.AUTH_FULFILLED,
                     payload: {
@@ -54,13 +78,24 @@ export const register = (log, pass) => async (dispatch, getState) => {
                     }
                 });
                 localStorage.setItem("token", r.token)
+            } else {
+                dispatch({
+                    type: TYPE.AUTH_REJECT,
+                    payload: r.message
+                })
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            dispatch({
+                type: TYPE.AUTH_REJECT,
+                payload: r.message
+            })
+        })
 }
 
 export function recieveAuth() {
-    return ( dispatch, getState) => {
+    return (dispatch, getState) => {
+
         const { token } = getState().auth;
 
         if (!token) {
@@ -71,16 +106,16 @@ export function recieveAuth() {
         }
 
         return http('/users/me', 'GET', null, token)
-        .then( r => r.json())
-        .then( r => dispatch({
-            type: TYPE.RECIEVE_AUTH_FULFILLED,
-            payload: r.user
-        }))
-        .catch( e => {
-            dispatch({
-                type: TYPE.RECIEVE_AUTH_REJECT,
-                payload: e
+            .then(r => r.json())
+            .then(r => dispatch({
+                type: TYPE.RECIEVE_AUTH_FULFILLED,
+                payload: r.user
+            }))
+            .catch(e => {
+                dispatch({
+                    type: TYPE.RECIEVE_AUTH_REJECT,
+                    payload: e
+                })
             })
-        })
     }
 }

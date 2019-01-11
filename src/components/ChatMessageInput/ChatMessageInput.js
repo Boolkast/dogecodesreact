@@ -31,23 +31,25 @@ class ChatMessageInput extends React.Component {
             <div className={classes.chatInputCenterer}>
                 <Paper className={classes.input}>
                     {
-                        this.props.isUserInChat ? (
-                            <Button
+                        this.props.activeUser.isMember || this.props.activeUser.isCreator ? (
+                            <Input
                                 fullWidth
-                                variant="raised"
-                                color="primary"
-                                onClick={() => this.props.joinChat}
-                            >
-                                Join chat
-                        </Button>
+                                placeholder="Enter a message"
+                                value={this.state.value}
+                                onChange={this.changeHandler}
+                                onKeyPress={this.enterHandler}
+                                disabled={this.props.disabled}
+                            />
                         ) : (
-                                <Input
+                                <Button
+                                    disabled={this.props.disabled}
                                     fullWidth
-                                    placeholder="Enter a message"
-                                    value={this.state.value}
-                                    onChange={this.changeHandler}
-                                    onKeyPress={this.enterHandler}
-                                />
+                                    variant="raised"
+                                    color="primary"
+                                    onClick={this.props.joinChat}
+                                >
+                                    Join chat
+                                </Button>
                             )
                     }
                 </Paper>

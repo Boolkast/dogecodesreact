@@ -10,7 +10,8 @@ class PrivateRouter extends React.Component {
     }
 
     render() {
-        const { component: Component, isAuth, ...rest } = this.props;
+        const { component: Component, 
+            isAuth, ...rest } = this.props;
         return (
             <Route {...rest} render={props => (
                 isAuth ? (

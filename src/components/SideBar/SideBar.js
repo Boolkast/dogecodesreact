@@ -15,11 +15,22 @@ import NewChatButton from "../NewChatButton/NewChatButton";
 class SideBar extends React.Component {
 
     state = {
-        tab: 0
+        tab: 0,
+        searchValue:""
     }
 
+    filterChats = (chats) => {
+        const { searchValue } = this.state;
+        return chats
+          .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
+          .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
+      };
+
     render() {
+        console.log(this.props)
         const { classes } = this.props;
+        const source = this.state.tab == 0 ? this.props.chats.my : this.props.chats.all;
+
         return (
             <Drawer
                 className={classes.drawer}
@@ -32,6 +43,8 @@ class SideBar extends React.Component {
                 <div className={classes.toolbar}>
                     <div className={classes.search}>
                         <InputBase
+                            value={this.state.searchValue}
+                            onChange={(e) => this.setState({searchValue: e.target.value})}
                             placeholder="Search chats…"
                             classes={{
                                 root: classes.inputRoot,
@@ -42,9 +55,9 @@ class SideBar extends React.Component {
                 </div>
                 <Divider />
                 <div className={classes.chatlist} >
-                    <ChatList chatlist={this.props.chats} type={this.state.tab} chatId={this.props.chats.activeChat ? this.props.chats.activeChat._id : null} setActiveChat={this.props.setActiveChat} />
+                    <ChatList isConnected={this.props.isConnected} chatlist={this.filterChats(source)} type={this.state.tab} setActiveChat={this.props.setActiveChat} />
                 </div>
-                <NewChatButton createChat={this.props.createChat} />
+                <NewChatButton disabled={!this.props.isConnected} createChat={this.props.createChat} />
                 <AppBar
                     position="static"
                     color="inherit"
