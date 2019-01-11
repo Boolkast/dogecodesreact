@@ -51,7 +51,7 @@ class MessageList extends React.Component {
           })
         }
         </div>
-        <ChatMessageInput disabled={!this.props.isConnected} joinChat={this.props.joinChat} activeUser={this.props.activeUser} sendMessage={this.props.sendMessage}/>
+      { this.props.activeChat && <ChatMessageInput disabled={!this.props.isConnected} joinChat={this.props.joinChat} activeUser={this.props.activeUser} sendMessage={this.props.sendMessage}/> }
       </div>
     )
   }

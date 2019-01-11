@@ -27,7 +27,6 @@ class SideBar extends React.Component {
       };
 
     render() {
-        console.log(this.props)
         const { classes } = this.props;
         const source = this.state.tab == 0 ? this.props.chats.my : this.props.chats.all;
 

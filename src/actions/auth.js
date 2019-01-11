@@ -119,3 +119,35 @@ export function recieveAuth() {
             })
     }
 }
+
+export function editUser(username, firstName, lastName) {
+    return (dispatch, getState) => {
+        console.log(username, firstName, lastName)
+        const { isFetching } = getState().services;
+        const { token } = getState().auth;
+
+
+    if (isFetching.editUser) {
+        return Promise.resolve();
+      }
+  
+      dispatch({
+        type: TYPE.EDIT_USER_REQUEST,
+      });
+
+      return http('/users/me', "POST", { data: {username, firstName, lastName}}, token)
+      .then(r => r.json())
+      .then(r => {
+        dispatch({
+            type: TYPE.EDIT_USER_FULFILLED,
+            payload: r,
+          })
+      })
+      .catch( e => {
+        dispatch({
+            type: TYPE.EDIT_USER_REJECT,
+            payload: e,
+          })
+      })
+    }
+}

@@ -110,7 +110,6 @@ export const errors = (state = intialState.errors, action) => {
     case types.DELETE_CHAT_REJECT:
     case types.SOCKETS_CONNECTION_REJECT:
     case types.EDIT_USER_REJECT:
-    console.log(action.type, action.payload)
       return { ...state, chat: action.payload.message };
     case types.FETCH_ALL_CHATS_FULFILLED:
     case types.FETCH_MY_CHATS_FULFILLED:

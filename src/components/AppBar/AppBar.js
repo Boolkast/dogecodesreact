@@ -32,7 +32,7 @@ function AppBarComponent(props) {
               </>
             )
           }
-          <UserMenu logout={props.logout} disabled={!props.isConnected}/>
+          <UserMenu editUser={props.editUser} user={props.user} logout={props.logout} disabled={!props.isConnected}/>
         </Toolbar>
       </AppBar>
     </>

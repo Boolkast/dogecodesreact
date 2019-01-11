@@ -143,7 +143,6 @@ export function joinChat() {
     return (dispatch, getState) => {
         const { isFetching } = getState().services;
         const id = getState().chat.activeId
-        console.log(id)
         if (isFetching.joinChat) {
           return Promise.resolve();
         }
@@ -156,7 +155,6 @@ export function joinChat() {
         return http(`/chats/${id}/join`, 'GET', null, token)
         .then( r => r.json())
         .then( r => {
-            console.log(r)
             if (r.success) {
                 dispatch({
                     type: types.JOIN_CHAT_FULFILLED,
