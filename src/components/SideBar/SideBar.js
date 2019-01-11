@@ -42,7 +42,7 @@ class SideBar extends React.Component {
                 </div>
                 <Divider />
                 <div className={classes.chatlist} >
-                    <ChatList chatlist={this.props.chats} type={this.state.tab} />
+                    <ChatList chatlist={this.props.chats} type={this.state.tab} chatId={this.props.chats.activeChat ? this.props.chats.activeChat._id : null} setActiveChat={this.props.setActiveChat} />
                 </div>
                 <NewChatButton createChat={this.props.createChat} />
                 <AppBar

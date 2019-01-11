@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import AvatarComponent from "../Avatar/avatar";
 import { styles } from "./style";
+import ChatListItem from "../ChatListItem/ChatListItem";
 
 function ChatList(props) {
     const { classes } = props;
@@ -13,13 +13,7 @@ function ChatList(props) {
                 source.map( (chat, i) => {
                     const gettedChat = props.chatlist.byIds[chat]
                     return (
-                        <div key={i} className={classes.chatItem}>
-                            <AvatarComponent name={gettedChat.title} />
-                            <div className={classes.info}>
-                                <p className={classes.infoItem}>{gettedChat.title}</p>
-                            </div>
-                        </div>
-
+                        <ChatListItem indx={i} title={gettedChat.title} id={gettedChat._id} setActiveChat={props.setActiveChat}/>
                     )
                 })
             }

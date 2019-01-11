@@ -5,6 +5,7 @@ export const styles = theme => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+        height: "200px"
     },
     drawerPaper: {
         width: drawerWidth
@@ -37,7 +38,10 @@ export const styles = theme => ({
         borderBottom: 'solid 1px #000',
     },
     tabContainer: {
-        height: "56px"
+        height: "56px",
+        top: "calc(100% - 56px)",
+        width: "318px",
+        left: "0px"
     },
     tabsSizes: {
         height: "100%"

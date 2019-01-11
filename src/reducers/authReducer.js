@@ -17,20 +17,21 @@ const initialState = {
 function reducer(state = initialState, action) {
     switch (action.type) {
         case t.AUTH_FULFILLED:
-            return {
-                ...state,
-                isAuth: true,
-                user: action.payload.user
-            }
+        return {
+            ...state,
+            isAuth: true,
+            user: action.payload.user,
+            token: action.payload.token
+        }
         case t.LOGOUT_FULFILLED:
-            return {
-                isAuth: false
-            };
+        return {
+            isAuth: false
+        };
         case t.RECIEVE_AUTH_FULFILLED:
             return {
                 ...state,
                 isAuth: true,
-                user: action.payload.user
+                user: action.payload,
             }
         default:
             return state;

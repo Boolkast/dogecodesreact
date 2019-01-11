@@ -37,7 +37,7 @@ class NewChatButton extends React.Component {
         } else {
             this.props.createChat( {data: {
                 title: this.state.title.value}})
-            .then( r=> console.log(r))
+            .then( r=> this.setState({modal: false}))
         }
     }
 

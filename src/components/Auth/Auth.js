@@ -10,7 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { logIn } from "../../actions/auth";
+import { logIn, register } from "../../actions/auth";
 import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
@@ -23,22 +23,7 @@ class Auth extends Component {
     };
 
     submitRegister = () => {
-        if (this.state.password != this.state.confPassword) {
-            return
-        }
-        fetch("http://localhost:8000/v1/signup", { 
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: this.state.login,
-                password: this.state.password
-            })
-        }).then( r => r.json())
-        .then( r => console.log(r))
-        .catch( e => console.log(e))
+        this.props.register(this.state.login, this.state.password)
     }
 
     submitLogin = () => {
@@ -125,5 +110,5 @@ class Auth extends Component {
 
 export default connect(
     state => ({ state: state}),
-    { logIn }
+    { logIn, register }
 )(withStyles(styles)(Auth));

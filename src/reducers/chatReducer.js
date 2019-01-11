@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    activeId: '',
+    activeId: null,
     allIds: [],
     myIds: [],
     byIds: {},
@@ -11,9 +11,13 @@ const initialState = {
 function activeId(state = initialState.activeId, action) {
     switch(action.type) {
         case types.SET_ACTIVE_CHAT:
+        case types.JOIN_CHAT_FULFILLED:
             return action.payload.chat._id
         case types.UNSET_ACTIVE_CHAT:
+        case types.DELETE_CHAT_FULFILLED:
             return '';
+        case types.RECIEVE_DELETED_CHAT:
+            return state === getChatId(action.payload.chat) ? null : activeId;
         default:
             return state;
     }
@@ -23,10 +27,16 @@ function allIds(state = initialState.allIds, action) {
         case types.FETCH_ALL_CHATS_FULFILLED:
             return action.payload.chats.map(getChatId)
         case types.CREATE_CHAT_FULFILLED:
+        case types.RECIEVE_NEW_CHAT:
             return [
                 ...state,
                 action.payload.chat._id
             ]
+        case types.DELETE_CHAT_FULFILLED:
+        case types.RECIEVE_DELETED_CHAT:
+            return state.filter(
+                chatId => chatId != getChatId(action.payload.chat)
+            )
     default:
         return state;
     }
@@ -36,10 +46,17 @@ function myIds( state = initialState.myIds, action) {
         case types.FETCH_MY_CHATS_FULFILLED:
             return action.payload.chats.map(getChatId)
         case types.CREATE_CHAT_FULFILLED:
+        case types.JOIN_CHAT_FULFILLED:
             return [
                 ...state,
                 action.payload.chat._id
             ]
+        case types.DELETE_CHAT_FULFILLED:
+        case types.LEAVE_CHAT_FULFILLED:
+        case types.RECIEVE_DELETED_CHAT:
+            return state.filter(
+                chatId => chatId !== getChatId(action.payload.chat)
+            )
         default:
             return state;
     }
@@ -57,12 +74,20 @@ function byIds(state = initialState.byIds, action) {
                 }), {})
             }
         case types.CREATE_CHAT_FULFILLED:
+        case types.LEAVE_CHAT_FULFILLED:
+        case types.JOIN_CHAT_FULFILLED:
+        case types.RECIEVE_NEW_CHAT:
             return {
                 ...state,
                 [action.payload.chat._id]: {
                     ...action.payload.chat
                 }
             }
+        case types.DELETE_CHAT_FULFILLED:
+        case types.RECIEVE_DELETED_CHAT:
+            const newState = { ...state };
+            delete newState[getChatId(action.payload.chat)];
+            return newState;
         default:
             return state;
     }
@@ -76,4 +101,5 @@ export default combineReducers({
 })
 
 export const getChatId = (chat) => chat._id
+export const getById = (state, id) => state.byIds[id];
 export const getByIds = (state, ids) => ids.map( id => state.byIds[id])

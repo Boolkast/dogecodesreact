@@ -21,6 +21,23 @@ export const logIn = (log, pass) => async (dispatch, getState) => {
         .catch(e => console.log(e))
 }
 
+export const logout = () => async (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    const r = await http("/logout", "GET", null, token)
+        .then(r => r.json())
+        .then(r => {
+            if (r.success) {
+                console.log(r)
+                dispatch({
+                    type: TYPE.LOGOUT_FULFILLED,
+                });
+                localStorage.removeItem("token")
+            }
+        })
+        .catch(e => console.log(e))
+}
+
 export const register = (log, pass) => async (dispatch, getState) => {
     const username = log
     const password = pass
@@ -28,6 +45,7 @@ export const register = (log, pass) => async (dispatch, getState) => {
         .then(r => r.json())
         .then(r => {
             if (r.success) {
+                console.log(r)
                 dispatch({
                     type: TYPE.AUTH_FULFILLED,
                     payload: {
@@ -55,8 +73,8 @@ export function recieveAuth() {
         return http('/users/me', 'GET', null, token)
         .then( r => r.json())
         .then( r => dispatch({
-            type: TYPE.AUTH_FULFILLED,
-            payload: r
+            type: TYPE.RECIEVE_AUTH_FULFILLED,
+            payload: r.user
         }))
         .catch( e => {
             dispatch({

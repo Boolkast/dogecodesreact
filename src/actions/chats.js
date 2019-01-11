@@ -63,6 +63,7 @@ export function fetchChat(id) {
         return http(`/chats/${id}`, "GET", null, token)
             .then(r => r.json())
             .then(r => {
+                console.log(r)
                 dispatch({
                     type: types.FETCH_CHAT_FULFILLED,
                     payload: r
@@ -88,6 +89,7 @@ export function setActiveChat(id) {
                         type: types.UNSET_ACTIVE_CHAT
                     })
                 }
+                dispatch(redirect(`/chat/${id}`))
 
                 dispatch({
                     type: types.SET_ACTIVE_CHAT,
@@ -115,6 +117,7 @@ export function createChat(title) {
                     type: types.CREATE_CHAT_FULFILLED,
                     payload: r
                 })
+                dispatch(redirect(`/chat/${r.chat._id}`))
             }
         })
         .catch( e => console.log(e))
@@ -136,6 +139,7 @@ export function joinChat(id) {
                     type: types.JOIN_CHAT_FULFILLED,
                     payload: r
                 })
+                dispatch(redirect(`/chat/${id}`))
             }
         })
         .catch( e => console.log(e))

@@ -5,32 +5,34 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import AvatarComponent from "../Avatar/avatar";
 import { styles } from "./style";
+import ChatMessageInput from "../ChatMessageInput/ChatMessageInput";
 
 function MessageList(props) {
   const { classes } = props;
   return (
-  <main className={classes.content}>
-  <div className={classes.toolbar} />
-  {
-    props.messages.map((item, i) => {
-      console.log(i)
-      return (
-      <div key={i} className={classNames(classes.messageWrapper, item.sender === "me" && classes.messageWrappperFromMe)}>
-      { item.sender !== "me" && <AvatarComponent name={item.sender}/> }
-        <Paper className={classNames(classes.messages, item.sender === "me" && classes.messageFromMe)}>
-          <Typography variant="h5" component="h3">
-            {item.sender}
-          </Typography>
-          <Typography component="p">
-            {item.message}
-          </Typography>
-        </Paper>
-      { item.sender === "me" && <AvatarComponent name={item.sender}/> }
-      </div>
-      )
-    })
-  }
-</main>
+    <main className={classes.content}>
+      <div className={classes.toolbar} />
+      {
+        props.messages.map((item, i) => {
+          const isMe = props.userId == item.sender._id
+          return (
+            <div key={i} className={classNames(classes.messageWrapper, isMe && classes.messageWrappperFromMe)}>
+              { !isMe && <AvatarComponent name={item.sender.username} />}
+              <Paper className={classNames(classes.messages, isMe ? classes.messageFromMe : null)}>
+                <Typography variant="h5" component="h4">
+                  {item.sender.username}
+                </Typography>
+                <Typography component="p">
+                  {item.content}
+                </Typography>
+              </Paper>
+              { isMe && <AvatarComponent name={item.sender.username} />}
+            </div>
+          )
+        })
+      }
+      <ChatMessageInput joinChat={props.joinChat} isUserInChat={props.isUserInChat} sendMessage={props.sendMessage} id={props.chatId}/>
+    </main>
   )
 }
 
