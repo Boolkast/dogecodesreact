@@ -1,40 +1,89 @@
-import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import MessageList from "../MessageList/messageList";
-import { styles } from "./style";
-import { connect } from "react-redux";
-import AppBarComponent from "../AppBar/AppBar";
-import SideBar from "../SideBar/SideBar";
-import { createChat, setActiveChat, leaveChat, deleteChat, joinChat } from "../../actions/chats";
-import { logout, editUser } from "../../actions/auth";
-import { sendMessage } from "../../actions/sockets";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import MessageList from '../MessageList/messageList';
+import { styles } from './style';
+import AppBarComponent from '../AppBar/AppBar';
+import SideBar from '../SideBar/SideBar';
+import {
+  createChat, setActiveChat, leaveChat, deleteChat, joinChat,
+} from '../../actions/chats';
+import { logout, editUser } from '../../actions/auth';
+import { sendMessage } from '../../actions/sockets';
+import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
 
 class ChatPage extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.object.isRequired,
+    }).isRequired,
+    fetchAllChats: PropTypes.func.isRequired,
+    fetchMyChats: PropTypes.func.isRequired,
+    setActiveChat: PropTypes.func.isRequired,
+    socketsConnect: PropTypes.func.isRequired,
+    mountChat: PropTypes.func.isRequired,
+    unmountChat: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.array.isRequired,
+      all: PropTypes.array.isRequired,
+    }).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    createChat: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    leaveChat: PropTypes.func.isRequired,
+    deleteChat: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.object.isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    editUser: PropTypes.func.isRequired,
+    error: PropTypes.instanceOf(Error),
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    error: null,
+  };
 
   componentDidMount() {
-    const { fetchAllChats, fetchMyChats } = this.props
+    const {
+      fetchAllChats, fetchMyChats, socketsConnect, match, mountChat,
+    } = this.props;
 
-    Promise.all([
-      fetchAllChats(),
-      fetchMyChats()
-    ])
-    .then( () => {
-      this.props.socketsConnect()
-    })
-    .then(() => {
-      const { chatId } = this.props.match.params;
+    Promise.all([fetchAllChats(), fetchMyChats()])
+      .then(() => {
+        socketsConnect();
+      })
+      .then(() => {
+        const { chatId } = match.params;
 
-      if (chatId) {
-        this.props.setActiveChat(chatId);
-        this.props.mountChat(chatId);
-      }
-    })
+        if (chatId) {
+          setActiveChat(chatId);
+          mountChat(chatId);
+        }
+      });
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      match: { params }, setActiveChat, unmountChat, mountChat,
+      match: { params },
+      unmountChat,
+      mountChat,
     } = this.props;
     const { params: nextParams } = nextProps.match;
     if (params.chatId !== nextParams.chatId) {
@@ -45,46 +94,56 @@ class ChatPage extends React.Component {
   }
 
   render() {
+    const {
+      isConnected, activeUser, activeChat, chats, messages, classes, state,
+    } = this.props;
+
     const appBarPack = {
-      leaveChat: this.props.leaveChat,
-      deleteChat: this.props.deleteChat,
-      isConnected: this.props.state.services.isConnected,
-      activeUser: this.props.activeUser,
-      leaveChat: this.props.leaveChat,
-      state: this.props.state,
-      activeChat: this.props.chats.activeChat,
-      logout: this.props.logout,
-      user: this.props.activeUser,
-      editUser: this.props.editUser
-    }
+      leaveChat,
+      deleteChat,
+      isConnected,
+      activeUser,
+      activeChat,
+      logout,
+      editUser,
+    };
 
     const sideBarPack = {
-      isConnected: this.props.state.services.isConnected,
-      chats: this.props.chats,
-      createChat: this.props.createChat,
-      setActiveChat: this.props.setActiveChat
-    }
+      isConnected,
+      chats,
+      createChat,
+      setActiveChat,
+    };
 
     const messageListPack = {
-      activeChat: this.props.chats.activeChat,
-      isConnected: this.props.state.services.isConnected,
-      joinChat: this.props.joinChat, messages: this.props.state.messages,
-      activeUser: this.props.activeUser,
-      sendMessage: this.props.sendMessage
-    }
-
+      activeChat,
+      isConnected,
+      joinChat,
+      messages,
+      activeUser,
+      sendMessage,
+    };
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <AppBarComponent {...appBarPack} />
-        <SideBar {...sideBarPack}/>
-        <MessageList {...messageListPack}/>
-        <ErrorSnackbar error={this.props.state.services.errors.chat} />
+        <SideBar {...sideBarPack} />
+        <MessageList {...messageListPack} />
+        <ErrorSnackbar error={state.services.errors.chat} />
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({ state: state }),
-  { createChat, logout, setActiveChat, sendMessage, leaveChat, deleteChat, joinChat, editUser }
+  state => ({ state }),
+  {
+    createChat,
+    logout,
+    setActiveChat,
+    sendMessage,
+    leaveChat,
+    deleteChat,
+    joinChat,
+    editUser,
+  },
 )(withStyles(styles)(ChatPage));

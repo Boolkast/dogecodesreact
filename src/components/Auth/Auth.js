@@ -1,139 +1,151 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
+import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
-import { styles } from "./style";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { connect } from "react-redux";
-import { logIn, register } from "../../actions/auth";
-import { Redirect } from "react-router-dom";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { logIn, register } from '../../actions/auth';
+import { styles } from './style';
 import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
 
 class Auth extends Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    state: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
 
-    state = {
-        tab: 0,
-        login: '',
-        password: '',
-        confPassword: '',
-        isPassComplete: true,
-        isLoginComplete: true
-    };
+  state = {
+    tab: 0,
+    login: '',
+    password: '',
+    confPassword: '',
+    isPassComplete: true,
+    isLoginComplete: true,
+  };
 
-    submitRegister = () => {
-        if (this.state.password === this.state.confPassword) {
-            if (this.state.login.length !== 0) {
-                this.props.register(this.state.login, this.state.password)
-                this.setState({isLoginComplete: true, isPassComplete: true})
-            } else {
-                this.setState({isLoginComplete: false})
-            }
-        } else {
-            this.setState({isPassComplete: false})
-        }
+  submitRegister = () => {
+    const { login, password, confPassword } = this.state;
+
+    if (password === confPassword) {
+      if (login.length !== 0) {
+        register(login, password);
+        this.setState({ isLoginComplete: true, isPassComplete: true });
+      } else {
+        this.setState({ isLoginComplete: false });
+      }
+    } else {
+      this.setState({ isPassComplete: false });
     }
+  };
 
-    submitLogin = () => {
-        if (this.state.password.length !== 0) {
-            if (this.state.login.length !== 0) {
-                this.props.logIn(this.state.login, this.state.password)
-                this.setState({isLoginComplete: true, isPassComplete: true})
-            } else {
-                this.setState({isLoginComplete: false})
-            }
-        } else {
-            this.setState({isPassComplete: false})
-        }
+  submitLogin = () => {
+    const { login, password } = this.state;
+    if (password.length !== 0) {
+      if (login.length !== 0) {
+        logIn(login, password);
+        this.setState({ isLoginComplete: true, isPassComplete: true });
+      } else {
+        this.setState({ isLoginComplete: false });
+      }
+    } else {
+      this.setState({ isPassComplete: false });
     }
+  };
 
-    handleChange = (key, value) => {
-        this.setState({ [key]: value });
-    };
+  handleChange = (key, value) => {
+    this.setState({ [key]: value });
+  };
 
-    render() {
-        const { classes } = this.props;
-        return (
-            <>
-            {
-                this.props.state.auth.isAuth && <Redirect to="/chat" />
-            }
-            <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Boolka React Chat
-          </Typography>
-          <div className={classes.right}>
+  render() {
+    const { classes, state } = this.props;
+    const {
+      tab, name, password, confPassword, isLoginComplete, isPassComplete,
+    } = this.state;
+    return (
+      <>
+        {state.auth.isAuth && <Redirect to="/chat" />}
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" color="inherit" noWrap>
+              Boolka React Chat
+            </Typography>
+            <div className={classes.right} />
+          </Toolbar>
+        </AppBar>
+        <div className={classes.root}>
+          <div className={classes.authForm}>
+            <Paper square>
+              <Tabs
+                value={tab}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={(e, value) => this.handleChange('tab', value)}
+                fullWidth
+              >
+                <Tab label="LOGIN" selected />
+                <Tab label="SIGN UP" />
+              </Tabs>
+            </Paper>
+            <Paper square className={classes.inputsContainer}>
+              <TextField
+                id="standard-name"
+                label="Name"
+                className={classes.input}
+                error={!isLoginComplete}
+                value={name}
+                onChange={e => this.handleChange('login', e.target.value)}
+                margin="normal"
+              />
+              <TextField
+                id="standard-password-input"
+                label="Password"
+                className={classes.input}
+                type="password"
+                error={!isPassComplete}
+                autoComplete="current-password"
+                value={password}
+                onChange={e => this.handleChange('password', e.target.value)}
+                margin="normal"
+              />
+
+              {tab === 1 && (
+                <TextField
+                  id="standard-password-input"
+                  label="Repeat password"
+                  className={classes.input}
+                  type="password"
+                  error={!isPassComplete}
+                  autoComplete="current-password"
+                  value={confPassword}
+                  onChange={e => this.handleChange('confPassword', e.target.value)}
+                  margin="normal"
+                />
+              )}
+              <Button
+                variant="contained"
+                onClick={tab === 0 ? this.submitLogin : this.submitRegister}
+                color="primary"
+                className={classes.loginButton}
+              >
+                {tab === 0 ? 'LOGIN' : 'SIGN UP'}
+              </Button>
+            </Paper>
           </div>
-        </Toolbar>
-            </AppBar>
-            <div className={classes.root}>
-                <div className={classes.authForm}>
-                    <Paper square>
-                        <Tabs
-                            value={this.state.tab}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            onChange={(e, value) => this.handleChange("tab", value)}
-                            fullWidth={true}
-                        >
-                            <Tab label="LOGIN" selected={true}/>
-                            <Tab label="SIGN UP" />
-                        </Tabs>
-                    </Paper>
-                    <Paper square className={classes.inputsContainer}>
-                        <TextField
-                            id="standard-name"
-                            label="Name"
-                            className={classes.input}
-                            error={!this.state.isLoginComplete}
-                            value={this.state.name}
-                            onChange={(e) => this.handleChange('login', e.target.value)}
-                            margin="normal"
-                        />
-                        <TextField
-                            id="standard-password-input"
-                            label="Password"
-                            className={classes.input}
-                            type="password"
-                            error={!this.state.isPassComplete}
-                            autoComplete="current-password"
-                            value={this.state.password}
-                            onChange={(e) => this.handleChange('password', e.target.value)}
-                            margin="normal"
-                        />
-
-                        { 
-                            this.state.tab == 1 && 
-                            <TextField
-                            id="standard-password-input"
-                            label="Repeat password"
-                            className={classes.input}
-                            type="password"
-                            error={!this.state.isPassComplete}
-                            autoComplete="current-password"
-                            value={this.state.confPassword}
-                            onChange={(e) => this.handleChange('confPassword', e.target.value)}
-                            margin="normal"
-                        />
-                        }
-                        <Button variant="contained" onClick={this.state.tab === 0 ? this.submitLogin : this.submitRegister} color="primary" className={classes.loginButton}>
-                            { this.state.tab === 0 ? "LOGIN" : "SIGN UP"}
-                        </Button>
-                    </Paper>
-                </div>
-            </div>
-            <ErrorSnackbar error={this.props.state.services.errors.auth}></ErrorSnackbar>
-            </>
-        );
-    }
+        </div>
+        <ErrorSnackbar error={state.services.errors.auth} />
+      </>
+    );
+  }
 }
 
 export default connect(
-    state => ({ state: state}),
-    { logIn, register }
+  state => ({ state }),
+  { logIn, register },
 )(withStyles(styles)(Auth));

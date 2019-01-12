@@ -4,58 +4,68 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import Input from 'material-ui/Input';
-import { styles } from "./style";
+import { styles } from './style';
 
 class ChatMessageInput extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    joinChat: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    activeUser: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
 
-    state = {
-        value: "",
-    }
+  state = {
+    value: '',
+  };
 
-    enterHandler = (e) => {
-        if (e.key == "Enter" && this.state.value.length != 0) {
-            this.props.sendMessage(this.state.value)
-            this.setState({ value: "" })
-        }
+  enterHandler = (e) => {
+    const { value } = this.state;
+    const { sendMessage } = this.props;
+    if (e.key === 'Enter' && value.length !== 0) {
+      sendMessage(value);
+      this.setState({ value: '' });
     }
+  };
 
-    changeHandler = (e) => {
-        this.setState({
-            value: e.target.value
-        })
-    }
+  changeHandler = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
 
-    render() {
-        const { classes } = this.props
-        return (
-            <div className={classes.chatInputCenterer}>
-                <Paper className={classes.input}>
-                    {
-                        this.props.activeUser.isMember || this.props.activeUser.isCreator ? (
-                            <Input
-                                fullWidth
-                                placeholder="Enter a message"
-                                value={this.state.value}
-                                onChange={this.changeHandler}
-                                onKeyPress={this.enterHandler}
-                                disabled={this.props.disabled}
-                            />
-                        ) : (
-                                <Button
-                                    disabled={this.props.disabled}
-                                    fullWidth
-                                    variant="raised"
-                                    color="primary"
-                                    onClick={this.props.joinChat}
-                                >
-                                    Join chat
-                                </Button>
-                            )
-                    }
-                </Paper>
-            </div>
-        )
-    }
+  render() {
+    const {
+      classes, activeUser, disabled, joinChat,
+    } = this.props;
+    const { value } = this.state;
+    return (
+      <div className={classes.chatInputCenterer}>
+        <Paper className={classes.input}>
+          {activeUser.isMember || activeUser.isCreator ? (
+            <Input
+              fullWidth
+              placeholder="Enter a message"
+              value={value}
+              onChange={this.changeHandler}
+              onKeyPress={this.enterHandler}
+              disabled={disabled}
+            />
+          ) : (
+            <Button
+              disabled={disabled}
+              fullWidth
+              variant="raised"
+              color="primary"
+              onClick={joinChat}
+            >
+              Join chat
+            </Button>
+          )}
+        </Paper>
+      </div>
+    );
+  }
 }
 
 export default withStyles(styles)(ChatMessageInput);

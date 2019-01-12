@@ -1,13 +1,46 @@
-import React from "react";
+/* eslint-disable no-underscore-dangle */
+import React from 'react';
 import classNames from 'classnames';
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
-import AvatarComponent from "../Avatar/avatar";
-import { styles } from "./style";
-import ChatMessageInput from "../ChatMessageInput/ChatMessageInput";
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import AvatarComponent from '../Avatar/avatar';
+import { styles } from './style';
+import ChatMessageInput from '../ChatMessageInput/ChatMessageInput';
 
 class MessageList extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.object.isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    activeChat: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+    userId: PropTypes.string.isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    joinChat: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    activeChat: null,
+  };
 
   componentDidMount() {
     this.scrollDownHistory();
@@ -16,7 +49,7 @@ class MessageList extends React.Component {
   componentDidUpdate() {
     this.scrollDownHistory();
   }
-  
+
   scrollDownHistory() {
     if (this.wrapper) {
       this.wrapper.scrollTop = this.wrapper.scrollHeight;
@@ -24,36 +57,58 @@ class MessageList extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {
+      classes,
+      messages,
+      userId,
+      activeChat,
+      isConnected,
+      joinChat,
+      sendMessage,
+      activeUser,
+    } = this.props;
     return (
-      <div className={classes.content} ref={(wrapper) => {
-        this.wrapper = wrapper;
-      }}>
+      <div
+        className={classes.content}
+        ref={(wrapper) => {
+          this.wrapper = wrapper;
+        }}
+      >
         <div className={classes.toolbar} />
         <div className={classes.messagesContainer}>
-        {
-          this.props.messages.map((item, i) => {
-            const isMe = this.props.userId == item.sender._id
+          {messages.map((item) => {
+            const isMe = userId === item.sender._id;
             return (
-              <div key={i} className={classNames(classes.messageWrapper, isMe && classes.messageWrappperFromMe)}>
+              <div
+                className={classNames(
+                  classes.messageWrapper,
+                  isMe && classes.messageWrappperFromMe,
+                )}
+              >
                 {!isMe && <AvatarComponent name={item.sender.username} />}
-                <Paper className={classNames(classes.messages, isMe ? classes.messageFromMe : null)}>
+                <Paper
+                  className={classNames(classes.messages, isMe ? classes.messageFromMe : null)}
+                >
                   <Typography variant="h5" component="h4">
                     {item.sender.username}
                   </Typography>
-                  <Typography component="p">
-                    {item.content}
-                  </Typography>
+                  <Typography component="p">{item.content}</Typography>
                 </Paper>
                 {isMe && <AvatarComponent name={item.sender.username} />}
               </div>
-            )
-          })
-        }
+            );
+          })}
         </div>
-      { this.props.activeChat && <ChatMessageInput disabled={!this.props.isConnected} joinChat={this.props.joinChat} activeUser={this.props.activeUser} sendMessage={this.props.sendMessage}/> }
+        {activeChat && (
+          <ChatMessageInput
+            disabled={!isConnected}
+            joinChat={joinChat}
+            activeUser={activeUser}
+            sendMessage={sendMessage}
+          />
+        )}
       </div>
-    )
+    );
   }
 }
 

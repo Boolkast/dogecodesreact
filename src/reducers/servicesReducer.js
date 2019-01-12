@@ -90,7 +90,7 @@ export const isFetching = (state = intialState.isFetching, action) => {
       return state;
   }
 };
- 
+
 export const errors = (state = intialState.errors, action) => {
   switch (action.type) {
     case types.AUTH_REJECT:

@@ -14,6 +14,7 @@ class ErrorSnackbar extends React.Component {
   };
 
   state = {
+    // eslint-disable-next-line
     open: !!this.props.error,
   };
 
@@ -29,6 +30,7 @@ class ErrorSnackbar extends React.Component {
 
   render() {
     const { error } = this.props;
+    const { open } = this.state;
 
     if (!error) {
       return null;
@@ -39,7 +41,7 @@ class ErrorSnackbar extends React.Component {
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        open={this.state.open}
+        open={open}
         autoHideDuration={6000}
         onClose={this.handleCloseSnackbar}
         message={<span>{error}</span>}

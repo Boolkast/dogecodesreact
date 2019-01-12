@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export const styles = theme => ({
   messageWrapper: {
     display: 'flex',
@@ -10,8 +11,8 @@ export const styles = theme => ({
   },
   messages: {
     padding: theme.spacing.unit * 2,
-    maxWidth: "70%",
-    minWidth: "10%"
+    maxWidth: '70%',
+    minWidth: '10%',
   },
   messageFromMe: {
     padding: theme.spacing.unit * 2,
@@ -22,14 +23,14 @@ export const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column',
   },
   right: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
   },
   messagesContainer: {
-    marginBottom: "50px"
-  }
+    marginBottom: '50px',
+  },
 });

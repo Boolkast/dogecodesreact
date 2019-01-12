@@ -1,9 +1,11 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
+
 const drawerWidth = 320;
 
+// eslint-disable-next-line
 export const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex',
   },
   messageWrapper: {
     display: 'flex',
@@ -15,20 +17,20 @@ export const styles = theme => ({
     justifyContent: 'flex-end',
   },
   chatlist: {
-    height: `calc(100% - 20px)`
+    height: 'calc(100% - 20px)',
   },
   tabContainer: {
-    height: "56px"
+    height: '56px',
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   messages: {
     ...theme.mixins.gutters(),
     padding: theme.spacing.unit * 2,
-    maxWidth: "70%",
-    minWidth: "10%"
+    maxWidth: '70%',
+    minWidth: '10%',
   },
   messageFromMe: {
     padding: theme.spacing.unit * 2,
@@ -36,31 +38,31 @@ export const styles = theme => ({
     backgroundColor: '#e6dcff',
   },
   tabsSizes: {
-    height: "100%"
+    height: '100%',
   },
   tabSize: {
-    padding: "5px"
+    padding: '5px',
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 3,
   },
   right: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
-    marginRight: 20
+    marginRight: 20,
   },
   inputRoot: {
     color: 'inherit',
     width: '100%',
     display: 'flex',
-    alignItems: "center",
-    justifyContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   search: {
     borderRadius: theme.shape.borderRadius,
@@ -70,9 +72,9 @@ export const styles = theme => ({
     },
     width: '100%',
     height: '64px',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: 'center'
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputInput: {
     width: '85%',
