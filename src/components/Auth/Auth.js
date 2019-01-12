@@ -32,7 +32,7 @@ class Auth extends Component {
 
   submitRegister = () => {
     const { login, password, confPassword } = this.state;
-
+    const { register } = this.props;
     if (password === confPassword) {
       if (login.length !== 0) {
         register(login, password);
@@ -47,6 +47,8 @@ class Auth extends Component {
 
   submitLogin = () => {
     const { login, password } = this.state;
+    const { logIn } = this.props;
+
     if (password.length !== 0) {
       if (login.length !== 0) {
         logIn(login, password);

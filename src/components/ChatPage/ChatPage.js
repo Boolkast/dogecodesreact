@@ -62,7 +62,7 @@ class ChatPage extends React.Component {
 
   componentDidMount() {
     const {
-      fetchAllChats, fetchMyChats, socketsConnect, match, mountChat,
+      fetchAllChats, fetchMyChats, socketsConnect, match, mountChat, setActiveChat
     } = this.props;
 
     Promise.all([fetchAllChats(), fetchMyChats()])
@@ -84,6 +84,7 @@ class ChatPage extends React.Component {
       match: { params },
       unmountChat,
       mountChat,
+      setActiveChat,
     } = this.props;
     const { params: nextParams } = nextProps.match;
     if (params.chatId !== nextParams.chatId) {
@@ -95,15 +96,15 @@ class ChatPage extends React.Component {
 
   render() {
     const {
-      isConnected, activeUser, activeChat, chats, messages, classes, state,
+      activeUser, chats, classes, state, createChat, setActiveChat, joinChat, sendMessage, leaveChat, deleteChat, editUser, logout
     } = this.props;
-
+    const { isConnected } = state.services
     const appBarPack = {
       leaveChat,
       deleteChat,
       isConnected,
       activeUser,
-      activeChat,
+      activeChat: chats.activeChat,
       logout,
       editUser,
     };
@@ -116,10 +117,10 @@ class ChatPage extends React.Component {
     };
 
     const messageListPack = {
-      activeChat,
+      activeChat: chats.activeChat,
       isConnected,
       joinChat,
-      messages,
+      messages: state.messages,
       activeUser,
       sendMessage,
     };

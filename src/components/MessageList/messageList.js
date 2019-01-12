@@ -60,7 +60,6 @@ class MessageList extends React.Component {
     const {
       classes,
       messages,
-      userId,
       activeChat,
       isConnected,
       joinChat,
@@ -77,7 +76,7 @@ class MessageList extends React.Component {
         <div className={classes.toolbar} />
         <div className={classes.messagesContainer}>
           {messages.map((item) => {
-            const isMe = userId === item.sender._id;
+            const isMe = activeUser._id === item.sender._id;
             return (
               <div
                 className={classNames(

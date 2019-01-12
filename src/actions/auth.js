@@ -7,6 +7,7 @@ export const logIn = (log, pass) => async (dispatch, getState) => {
   if (isFetching.login) {
     return Promise.resolve();
   }
+
   const username = log;
   const password = pass;
   await http('/login', 'POST', { username, password })
@@ -48,7 +49,6 @@ export const logout = () => async (dispatch, getState) => {
     .then(r => r.json())
     .then((r) => {
       if (r.success) {
-        console.log(r);
         dispatch({
           type: TYPE.LOGOUT_FULFILLED,
         });
@@ -103,13 +103,13 @@ export function recieveAuth() {
       });
       return;
     }
-
     return http('/users/me', 'GET', null, token)
       .then(r => r.json())
-      .then(r => dispatch({
+      .then(r => {
+        dispatch({
         type: TYPE.RECIEVE_AUTH_FULFILLED,
         payload: r.user,
-      }))
+      })})
       .catch(e => dispatch({
         type: TYPE.RECIEVE_AUTH_REJECT,
         payload: e,
@@ -119,7 +119,6 @@ export function recieveAuth() {
 
 export function editUser(username, firstName, lastName) {
   return (dispatch, getState) => {
-    console.log(username, firstName, lastName);
     const { isFetching } = getState().services;
     const { token } = getState().auth;
 

@@ -36,7 +36,6 @@ class NewChatButton extends React.Component {
   onCreateButton = () => {
     const { createChat } = this.props;
     const { title } = this.state;
-
     if (title.value.length === 0) {
       this.setState({
         title: {

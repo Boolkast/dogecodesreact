@@ -13,6 +13,7 @@ class PrivateRouter extends React.Component {
   };
 
   componentDidMount() {
+    const { recieveAuth } = this.props
     recieveAuth();
   }
 

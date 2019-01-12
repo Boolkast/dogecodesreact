@@ -26,7 +26,7 @@ export function socketsConnect() {
       type: TYPE.SOCKETS_CONNECTION_REQUEST,
     });
 
-    socket = SocketIOClient('localhost:8000', {
+    socket = SocketIOClient('wss://dogecodes-chat-api.herokuapp.com/', {
       query: { token },
     });
 
@@ -43,7 +43,7 @@ export function socketsConnect() {
       });
     });
 
-    socket.on('connect_error', () => {
+    socket.on('connect_error', (e) => {
       dispatch({
         type: TYPE.SOCKETS_CONNECTION_REJECT,
         payload: new Error('We have lost a connection :('),

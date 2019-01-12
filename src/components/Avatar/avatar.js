@@ -10,7 +10,8 @@ function AvatarComponent(props) {
   let sym = '';
   name
     .split(' ')
-    .map(word => word[0].toUpperCase())
+    .map(word => { 
+      return word[0] ? word[0].toUpperCase() : word})
     .forEach((s) => {
       sym += s;
     });

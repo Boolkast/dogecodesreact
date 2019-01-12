@@ -73,7 +73,6 @@ class SideBar extends React.Component {
           <ChatList
             isConnected={isConnected}
             chatlist={this.filterChats(source)}
-            type={tab}
             setActiveChat={setActiveChat}
           />
         </div>

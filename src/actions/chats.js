@@ -166,6 +166,7 @@ export function joinChat() {
 }
 export function leaveChat(id) {
   return (dispatch, getState) => {
+
     const { isFetching } = getState().services;
 
     if (isFetching.leaveChat) {

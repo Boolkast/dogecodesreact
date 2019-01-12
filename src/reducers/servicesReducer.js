@@ -95,7 +95,7 @@ export const errors = (state = intialState.errors, action) => {
   switch (action.type) {
     case types.AUTH_REJECT:
     case types.LOGOUT_REJECT:
-      return { ...state, auth: action.payload };
+      return { ...state, auth: action.payload.message };
 
     case types.AUTH_FULFILLED:
     case types.LOGOUT_FULFILLED:

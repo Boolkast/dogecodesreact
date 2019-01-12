@@ -1,5 +1,5 @@
 export default async function http(url, method, query, token) {
-  const baseUrl = 'http://localhost:8000/v1';
+  const baseUrl = 'https://dogecodes-chat-api.herokuapp.com/v1';
   const settings = {
     headers: {
       Authorization: `Bearer ${token}`,
