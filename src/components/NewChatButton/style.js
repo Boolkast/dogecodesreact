@@ -6,9 +6,9 @@ export const styles = theme => ({
     height: '56px',
     margin: '0',
     padding: '0',
-    position: 'absolute',
+    position: 'fixed',
     bottom: '70px',
-    right: '10px',
+    left: '242px',
   },
   iconContainer: {
     display: 'flex',

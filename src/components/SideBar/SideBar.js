@@ -77,7 +77,7 @@ class SideBar extends React.Component {
           />
         </div>
         <NewChatButton disabled={!isConnected} createChat={createChat} />
-        <AppBar position="static" color="inherit" className={classes.tabContainer}>
+        <AppBar position="fixed" color="inherit" className={classes.tabContainer}>
           <Tabs
             className={classes.tabsSizes}
             value={tab}

@@ -7,10 +7,10 @@ import { styles } from './style';
 import ChatListItem from '../ChatListItem/ChatListItem';
 
 function ChatList(props) {
-  const { chatlist, isConnected, setActiveChat } = props;
+  const { chatlist, isConnected, setActiveChat, classes } = props;
   return (
     <React.Fragment>
-      <List>
+      <List className={classes.chatlist}>
         {chatlist
           && chatlist.map((chat, i) => (
             <ChatListItem

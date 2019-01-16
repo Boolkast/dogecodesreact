@@ -17,4 +17,7 @@ export const styles = theme => ({
     display: 'block',
     margin: 0,
   },
+  chatlist: {
+    marginBottom: 40
+  }
 });
