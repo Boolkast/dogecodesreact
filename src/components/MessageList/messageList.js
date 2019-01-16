@@ -51,10 +51,12 @@ class MessageList extends React.Component {
   }
 
   scrollDownHistory() {
-    if (this.wrapper) {
-      this.wrapper.scrollTop = this.wrapper.scrollHeight;
+    const messagesWrapper = this.refs.messagesWrapper;
+    if (messagesWrapper) {
+      messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+      console.log(messagesWrapper.scrollTop, messagesWrapper.scrollHeight)
     }
-  }
+  } 
 
   render() {
     const {
@@ -69,12 +71,9 @@ class MessageList extends React.Component {
     return (
       <div
         className={classes.content}
-        ref={(wrapper) => {
-          this.wrapper = wrapper;
-        }}
       >
         <div className={classes.toolbar} />
-        <div className={classes.messagesContainer}>
+        <div className={classes.messagesContainer} ref='messageWraper'>
           {messages.map((item) => {
             const isMe = activeUser._id === item.sender._id;
             return (
