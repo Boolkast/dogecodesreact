@@ -2,7 +2,8 @@
 export const styles = theme => ({
   appBar: {
     width: 'calc(100% - 320px)',
-    marginLeft: '320',
+    marginLeft: 320,
+    position: 'fixed',
   },
   right: {
     position: 'absolute',

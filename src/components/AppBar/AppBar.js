@@ -16,12 +16,13 @@ function AppBarComponent(props) {
     classes, activeChat, isConnected, activeUser, editUser, logout,
   } = props;
   return (
-    <>
+    <React.Fragment>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           {activeChat && (
-            <>
+            <React.Fragment>
+
               <AvatarComponent name={activeChat.title} />
               <Typography variant="h6" color="inherit" noWrap>
                 {activeChat.title}
@@ -32,12 +33,12 @@ function AppBarComponent(props) {
                   onDeleteClick={() => props.deleteChat(props.activeChat._id)}
                 />
               </Typography>
-            </>
+            </React.Fragment>
           )}
           <UserMenu editUser={editUser} activeUser={activeUser} logout={logout} disabled={!isConnected} />
         </Toolbar>
       </AppBar>
-    </>
+    </React.Fragment>
   );
 }
 
@@ -63,4 +64,4 @@ AppBarComponent.defaultProps = {
   activeChat: null,
 };
 
-export default withStyles(styles)(AppBarComponent);
+export default withStyles(styles)(AppBarComponent); 

@@ -57,7 +57,7 @@ class NewChatButton extends React.Component {
     const { modal, title } = this.state;
 
     return (
-      <>
+      <React.Fragment>
         <Button
           disabled={disabled}
           onClick={() => this.setState({ modal: true })}
@@ -93,7 +93,7 @@ class NewChatButton extends React.Component {
             </Button>
           </Paper>
         </Modal>
-      </>
+      </React.Fragment>
     );
   }
 }

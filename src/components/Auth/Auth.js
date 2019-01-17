@@ -72,7 +72,7 @@ class Auth extends Component {
       tab, name, password, confPassword, isLoginComplete, isPassComplete,
     } = this.state;
     return (
-      <>
+      <React.Fragment>
         {state.auth.isAuth && <Redirect to="/chat" />}
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
@@ -143,7 +143,7 @@ class Auth extends Component {
           </div>
         </div>
         <ErrorSnackbar error={state.services.errors.auth} />
-      </>
+      </React.Fragment>
     );
   }
 }

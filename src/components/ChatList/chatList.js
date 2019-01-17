@@ -7,7 +7,9 @@ import { styles } from './style';
 import ChatListItem from '../ChatListItem/ChatListItem';
 
 function ChatList(props) {
-  const { chatlist, isConnected, setActiveChat, classes } = props;
+  const {
+    chatlist, isConnected, setActiveChat, classes,
+  } = props;
   return (
     <React.Fragment>
       <List className={classes.chatlist}>
@@ -27,6 +29,7 @@ function ChatList(props) {
 }
 
 ChatList.propTypes = {
+  classes: PropTypes.string,
   chatlist: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,

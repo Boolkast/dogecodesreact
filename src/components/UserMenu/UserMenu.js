@@ -61,7 +61,7 @@ class UserMenu extends React.Component {
       anchor, modal, username, firstName, lastName,
     } = this.state;
     return (
-      <>
+      <React.Fragment>
         <div className={classes.right}>
           <IconButton
             disabled={disabled}
@@ -129,7 +129,7 @@ class UserMenu extends React.Component {
             </Paper>
           </Modal>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }

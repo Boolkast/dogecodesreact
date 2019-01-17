@@ -96,20 +96,20 @@ class ChatPage extends React.Component {
 
   render() {
     const {
-      activeUser, 
-      chats, 
-      classes, 
-      state, 
-      createChat, 
-      setActiveChat, 
-      joinChat, 
-      sendMessage, 
-      leaveChat, 
-      deleteChat, 
-      editUser, 
-      logout, 
-      messages, 
-      activeChat, 
+      activeUser,
+      chats,
+      classes,
+      state,
+      createChat,
+      setActiveChat,
+      joinChat,
+      sendMessage,
+      leaveChat,
+      deleteChat,
+      editUser,
+      logout,
+      messages,
+      activeChat,
       isConnected
     } = this.props;
 
