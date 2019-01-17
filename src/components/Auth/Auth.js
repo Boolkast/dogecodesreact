@@ -67,6 +67,7 @@ class Auth extends Component {
 
   render() {
     const { classes, state } = this.props;
+    console.log(this.props)
     const {
       tab, name, password, confPassword, isLoginComplete, isPassComplete,
     } = this.state;

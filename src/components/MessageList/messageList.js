@@ -24,7 +24,6 @@ class MessageList extends React.Component {
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     }),
-    userId: PropTypes.string.isRequired,
     activeUser: PropTypes.shape({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
@@ -54,7 +53,6 @@ class MessageList extends React.Component {
     const messagesWrapper = this.refs.messagesWrapper;
     if (messagesWrapper) {
       messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-      console.log(messagesWrapper.scrollTop, messagesWrapper.scrollHeight)
     }
   } 
 

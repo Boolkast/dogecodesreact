@@ -12,7 +12,18 @@ class ChatMessageInput extends React.Component {
     joinChat: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
     sendMessage: PropTypes.func.isRequired,
-    activeUser: PropTypes.objectOf(PropTypes.string).isRequired,
+    activeUser: PropTypes.objectOf({
+      chats: PropTypes.array,
+      createdAt: PropTypes.string,
+      firstName: PropTypes.string,
+      isChatMember: PropTypes.bool,
+      isCreator: PropTypes.bool,
+      isMember: PropTypes.bool,
+      lastName: PropTypes.string,
+      messagesCount: PropTypes.number,
+      username: PropTypes.string,
+      _id: PropTypes.string,
+    }).isRequired,
   };
 
   state = {
@@ -52,16 +63,16 @@ class ChatMessageInput extends React.Component {
               disabled={disabled}
             />
           ) : (
-            <Button
-              disabled={disabled}
-              fullWidth
-              variant="raised"
-              color="primary"
-              onClick={joinChat}
-            >
-              Join chat
+              <Button
+                disabled={disabled}
+                fullWidth
+                variant="raised"
+                color="primary"
+                onClick={joinChat}
+              >
+                Join chat
             </Button>
-          )}
+            )}
         </Paper>
       </div>
     );

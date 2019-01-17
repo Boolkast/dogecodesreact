@@ -46,7 +46,7 @@ class UserMenu extends React.Component {
   };
 
   handleOpenModal = () => {
-    const { username, firstName, lastName } = this.state;
+    const { username, firstName, lastName } = this.props.activeUser;
     this.setState({
       modal: true,
       username,

@@ -8,7 +8,7 @@ import { recieveAuth } from '../actions/auth';
 class PrivateRouter extends React.Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAuth: PropTypes.bool.isRequired,
     recieveAuth: PropTypes.func.isRequired,
   };
 

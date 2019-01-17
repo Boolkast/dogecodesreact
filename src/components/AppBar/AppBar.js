@@ -34,7 +34,7 @@ function AppBarComponent(props) {
               </Typography>
             </>
           )}
-          <UserMenu editUser={editUser} user={activeUser} logout={logout} disabled={!isConnected} />
+          <UserMenu editUser={editUser} activeUser={activeUser} logout={logout} disabled={!isConnected} />
         </Toolbar>
       </AppBar>
     </>

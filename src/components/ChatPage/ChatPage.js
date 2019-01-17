@@ -96,15 +96,29 @@ class ChatPage extends React.Component {
 
   render() {
     const {
-      activeUser, chats, classes, state, createChat, setActiveChat, joinChat, sendMessage, leaveChat, deleteChat, editUser, logout
+      activeUser, 
+      chats, 
+      classes, 
+      state, 
+      createChat, 
+      setActiveChat, 
+      joinChat, 
+      sendMessage, 
+      leaveChat, 
+      deleteChat, 
+      editUser, 
+      logout, 
+      messages, 
+      activeChat, 
+      isConnected
     } = this.props;
-    const { isConnected } = state.services
+
     const appBarPack = {
       leaveChat,
       deleteChat,
       isConnected,
       activeUser,
-      activeChat: chats.activeChat,
+      activeChat: activeChat,
       logout,
       editUser,
     };
@@ -117,10 +131,10 @@ class ChatPage extends React.Component {
     };
 
     const messageListPack = {
-      activeChat: chats.activeChat,
+      activeChat: activeChat,
       isConnected,
       joinChat,
-      messages: state.messages,
+      messages: messages,
       activeUser,
       sendMessage,
     };

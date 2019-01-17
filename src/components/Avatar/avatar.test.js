@@ -1,16 +1,14 @@
 /* eslint-env jest */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AvatarComponent from './avatar';
 
-jest.mock('./containers/ChatPage', () => () => 'ChatPage');
-jest.mock('./containers/PrivateRouter', () => () => 'PrivateRouter');
-jest.mock('./components/Auth/Auth', () => () => 'Auth');
+jest.mock('../../utils/colors', () => () => 'colorFrom');
 
 describe('<App />', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(<AvatarComponent name="test" />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
