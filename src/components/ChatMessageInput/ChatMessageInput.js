@@ -12,7 +12,7 @@ class ChatMessageInput extends React.Component {
     joinChat: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
     sendMessage: PropTypes.func.isRequired,
-    activeUser: PropTypes.objectOf({
+    activeUser: PropTypes.shape({
       chats: PropTypes.array,
       createdAt: PropTypes.string,
       firstName: PropTypes.string,

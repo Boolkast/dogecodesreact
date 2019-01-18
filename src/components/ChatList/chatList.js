@@ -20,6 +20,7 @@ function ChatList(props) {
               indx={i}
               title={chat.title}
               id={chat._id}
+              updatedAt={chat.updatedAt}
               setActiveChat={setActiveChat}
             />
           ))}

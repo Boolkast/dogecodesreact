@@ -58,7 +58,20 @@ class ChatPage extends React.Component {
     editUser: PropTypes.func.isRequired,
     error: PropTypes.instanceOf(Error),
     isConnected: PropTypes.bool.isRequired,
-    activeChat: PropTypes.func.isRequired,
+    activeChat: PropTypes.shape({
+      createdAt: PropTypes.string.isRequired,
+      creator: PropTypes.shape({
+        _id: PropTypes.string,
+        username: PropTypes.string,
+        lastName: PropTypes.string,
+        firstName: PropTypes.string,
+      }),
+      members: PropTypes.array,
+      title: PropTypes.string,
+      updatedAt: PropTypes.string,
+      __v: PropTypes.number,
+      _id: PropTypes.string,
+    }),
     classes: PropTypes.string.isRequired,
     state: PropTypes.shape({
       services: {
@@ -69,6 +82,7 @@ class ChatPage extends React.Component {
 
   static defaultProps = {
     error: null,
+    activeChat: null,
   };
 
   componentDidMount() {
@@ -154,6 +168,7 @@ class ChatPage extends React.Component {
       activeUser,
       sendMessage,
     };
+    console.log(this.props);
     return (
       <div className={classes.root}>
         <AppBarComponent {...appBarPack} />
