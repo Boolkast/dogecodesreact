@@ -1,6 +1,4 @@
-import {
-  createStore, applyMiddleware, compose, combineReducers,
-} from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import auth from './authReducer';
@@ -49,10 +47,13 @@ export const isCreator = (state, chatItem) => {
 
 export const isMember = (state, chatItem) => {
   try {
-    return chatItem.members.some(member => getUserId(member) === getUserId(getActiveUser(state)));
+    return chatItem.members.some(
+      member => getUserId(member) === getUserId(getActiveUser(state)),
+    );
   } catch (e) {
     return false;
   }
 };
 /* eslint max-len: ["error", { "code": 150 }] */
-export const isChatMember = (state, chatItem) => isCreator(state, chatItem) || isMember(state, chatItem);
+export const isChatMember = (state, chatItem) =>
+  isCreator(state, chatItem) || isMember(state, chatItem);

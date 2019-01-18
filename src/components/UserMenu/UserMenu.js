@@ -1,9 +1,10 @@
 import React from 'react';
-import { withStyles } from 'material-ui';
+import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import Modal from 'material-ui/Modal';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Modal from '@material-ui/core/Modal';
 import Person from '@material-ui/icons/Person';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -42,7 +43,9 @@ class UserMenu extends React.Component {
     const { username, firstName, lastName } = this.state;
     const { editUser } = this.props;
 
-    editUser(username, firstName, lastName).then(() => this.setState({ modal: false }));
+    editUser(username, firstName, lastName).then(() =>
+      this.setState({ modal: false }),
+    );
   };
 
   handleOpenModal = () => {
@@ -125,7 +128,9 @@ class UserMenu extends React.Component {
               <Button color="primary" onClick={this.handleSave}>
                 Save
               </Button>
-              <Button onClick={() => this.setState({ modal: false })}>Close</Button>
+              <Button onClick={() => this.setState({ modal: false })}>
+                Close
+              </Button>
             </Paper>
           </Modal>
         </div>

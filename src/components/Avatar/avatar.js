@@ -10,13 +10,16 @@ function AvatarComponent(props) {
   let sym = '';
   name
     .split(' ')
-    .map(word => word[0] ? word[0].toUpperCase() : word)
+    .map(word => (word[0] ? word[0].toUpperCase() : word))
     .forEach((s) => {
       sym += s;
     });
 
   return (
-    <Avatar className={classes.purpleAvatar} style={{ backgroundColor: colorFrom(name) }}>
+    <Avatar
+      className={classes.purpleAvatar}
+      style={{ backgroundColor: colorFrom(name) }}
+    >
       {sym}
     </Avatar>
   );

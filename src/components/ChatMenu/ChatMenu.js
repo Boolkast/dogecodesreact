@@ -1,7 +1,7 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Menu, { MenuItem } from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 class ChatMenu extends React.Component {
@@ -64,8 +64,12 @@ class ChatMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {activeUser.isMember && <MenuItem onClick={this.handleLeaveClick}>Leave</MenuItem>}
-          {activeUser.isCreator && <MenuItem onClick={this.handleDeleteClick}>Delete</MenuItem>}
+          {activeUser.isMember && (
+            <MenuItem onClick={this.handleLeaveClick}>Leave</MenuItem>
+          )}
+          {activeUser.isCreator && (
+            <MenuItem onClick={this.handleDeleteClick}>Delete</MenuItem>
+          )}
         </Menu>
       </React.Fragment>
     );

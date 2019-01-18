@@ -34,13 +34,21 @@ class SideBar extends React.Component {
   filterChats = (chats) => {
     const { searchValue } = this.state;
     return chats
-      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
-      .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
+      .filter(chat =>
+        chat.title.toLowerCase().includes(searchValue.toLowerCase()),
+      )
+      .sort((one, two) =>
+        one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1,
+      );
   };
 
   render() {
     const {
-      classes, chats, isConnected, setActiveChat, createChat,
+      classes,
+      chats,
+      isConnected,
+      setActiveChat,
+      createChat,
     } = this.props;
     const { tab, searchValue } = this.state;
 
@@ -77,7 +85,11 @@ class SideBar extends React.Component {
           />
         </div>
         <NewChatButton disabled={!isConnected} createChat={createChat} />
-        <AppBar position="fixed" color="inherit" className={classes.tabContainer}>
+        <AppBar
+          position="fixed"
+          color="inherit"
+          className={classes.tabContainer}
+        >
           <Tabs
             className={classes.tabsSizes}
             value={tab}
@@ -85,8 +97,16 @@ class SideBar extends React.Component {
             textColor="primary"
             fullWidth
           >
-            <Tab icon={<Restore />} label="My chats" className={classes.tabSize} />
-            <Tab icon={<Explore />} label="Explore" className={classes.tabSize} />
+            <Tab
+              icon={<Restore />}
+              label="My chats"
+              className={classes.tabSize}
+            />
+            <Tab
+              icon={<Explore />}
+              label="Explore"
+              className={classes.tabSize}
+            />
           </Tabs>
         </AppBar>
       </Drawer>

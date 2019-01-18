@@ -4,11 +4,10 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "<=7.0.0-beta.55",
-    "@material-ui/core": "^3.5.1",
+    "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^3.0.1",
     "classnames": "^2.2.6",
     "history": "^4.7.2",
-    "material-ui": "^1.0.0-beta.47",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-app-rewire-eslint": "^0.2.3",
@@ -31,7 +30,7 @@
     "eject": "react-app-rewired eject",
     "lint": "./node_modules/.bin/eslint src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier-eslint --write '**/*.{js,json}'",
+    "format": "prettier-eslint --write 'src/**/*.{js,json}'",
     "deploy": "npm run build && gh-pages -d build -m \"Updated at $(date +'%a, %d %b %Y, %T, %Z')\" --add",
     "precommit": "lint-staged"
   },
@@ -57,12 +56,12 @@
     "react-test-renderer": "^16.2.0"
   },
   "lint-staged": {
-    "**/*.js": [
+    "src/**/*.js": [
       "npm run lint:fix",
       "npm run format",
       "git add"
     ],
-    "**/*.json": [
+    "src/**/*.json": [
       "npm run format",
       "git add"
     ]

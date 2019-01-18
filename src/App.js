@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Switch, Redirect,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
 } from 'react-router-dom';
 import ChatPage from './containers/ChatPage';
 import Auth from './components/Auth/Auth';

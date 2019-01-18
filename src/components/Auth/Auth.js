@@ -78,7 +78,7 @@ class Auth extends Component {
       isPassComplete,
     } = this.state;
     return (
-      <React.Fragment>
+      <div>
         {state.auth.isAuth && <Redirect to="/chat" />}
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
@@ -151,7 +151,7 @@ class Auth extends Component {
           </div>
         </div>
         <ErrorSnackbar error={state.services.errors.auth} />
-      </React.Fragment>
+      </div>
     );
   }
 }
