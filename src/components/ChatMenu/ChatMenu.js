@@ -1,7 +1,8 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
-import Menu, { MenuItem } from '@material-ui/core/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 class ChatMenu extends React.Component {
