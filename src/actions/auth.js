@@ -11,9 +11,7 @@ export const logIn = (log, pass) => async (dispatch, getState) => {
   const username = log;
   const password = pass;
   await http('/login', 'POST', { username, password })
-    .then((r) => {
-      r.json();
-    })
+    .then(r => r.json())
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -48,9 +46,7 @@ export const logout = () => async (dispatch, getState) => {
   const { token } = getState().auth;
 
   return await http('/logout', 'GET', null, token)
-    .then((r) => {
-      r.json();
-    })
+    .then(r => r.json())
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -76,9 +72,7 @@ export const register = (log, pass) => async (dispatch, getState) => {
   const username = log;
   const password = pass;
   return await http('/signup', 'POST', { username, password })
-    .then((r) => {
-      r.json();
-    })
+    .then(r => r.json())
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -115,9 +109,7 @@ export function recieveAuth() {
       return;
     }
     return http('/users/me', 'GET', null, token)
-      .then((r) => {
-        r.json();
-      })
+      .then(r => r.json())
       .then((r) => {
         dispatch({
           type: TYPE.RECIEVE_AUTH_FULFILLED,
@@ -152,9 +144,7 @@ export function editUser(username, firstName, lastName) {
       { data: { username, firstName, lastName } },
       token,
     )
-      .then((r) => {
-        r.json();
-      })
+      .then(r => r.json())
       .then((r) => {
         dispatch({
           type: TYPE.EDIT_USER_FULFILLED,
