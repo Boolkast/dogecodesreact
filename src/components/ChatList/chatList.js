@@ -13,8 +13,8 @@ function ChatList(props) {
   return (
     <React.Fragment>
       <List className={classes.chatlist}>
-        {chatlist
-          && chatlist.map((chat, i) => (
+        {chatlist &&
+          chatlist.map((chat, i) => (
             <ChatListItem
               disabled={!isConnected}
               indx={i}
@@ -29,7 +29,7 @@ function ChatList(props) {
 }
 
 ChatList.propTypes = {
-  classes: PropTypes.string,
+  classes: PropTypes.string.isRequired,
   chatlist: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -37,15 +37,8 @@ ChatList.propTypes = {
       createdAt: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  activeChat: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-  }),
   setActiveChat: PropTypes.func.isRequired,
   isConnected: PropTypes.bool.isRequired,
-};
-
-ChatList.defaultProps = {
-  activeChat: null,
 };
 
 export default withStyles(styles)(ChatList);

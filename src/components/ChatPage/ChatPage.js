@@ -7,7 +7,11 @@ import { styles } from './style';
 import AppBarComponent from '../AppBar/AppBar';
 import SideBar from '../SideBar/SideBar';
 import {
-  createChat, setActiveChat, leaveChat, deleteChat, joinChat,
+  createChat,
+  setActiveChat,
+  leaveChat,
+  deleteChat,
+  joinChat,
 } from '../../actions/chats';
 import { logout, editUser } from '../../actions/auth';
 import { sendMessage } from '../../actions/sockets';
@@ -54,6 +58,13 @@ class ChatPage extends React.Component {
     editUser: PropTypes.func.isRequired,
     error: PropTypes.instanceOf(Error),
     isConnected: PropTypes.bool.isRequired,
+    activeChat: PropTypes.func.isRequired,
+    classes: PropTypes.string.isRequired,
+    state: PropTypes.shape({
+      services: {
+        isConnected: PropTypes.bool.isRequired,
+      },
+    }).isRequired,
   };
 
   static defaultProps = {
@@ -62,7 +73,12 @@ class ChatPage extends React.Component {
 
   componentDidMount() {
     const {
-      fetchAllChats, fetchMyChats, socketsConnect, match, mountChat, setActiveChat
+      fetchAllChats,
+      fetchMyChats,
+      socketsConnect,
+      match,
+      mountChat,
+      setActiveChat,
     } = this.props;
 
     Promise.all([fetchAllChats(), fetchMyChats()])
@@ -110,7 +126,7 @@ class ChatPage extends React.Component {
       logout,
       messages,
       activeChat,
-      isConnected
+      isConnected,
     } = this.props;
 
     const appBarPack = {
@@ -118,7 +134,7 @@ class ChatPage extends React.Component {
       deleteChat,
       isConnected,
       activeUser,
-      activeChat: activeChat,
+      activeChat,
       logout,
       editUser,
     };
@@ -131,10 +147,10 @@ class ChatPage extends React.Component {
     };
 
     const messageListPack = {
-      activeChat: activeChat,
+      activeChat,
       isConnected,
       joinChat,
-      messages: messages,
+      messages,
       activeUser,
       sendMessage,
     };

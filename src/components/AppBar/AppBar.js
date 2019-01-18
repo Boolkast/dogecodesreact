@@ -13,7 +13,12 @@ import ChatMenu from '../ChatMenu/ChatMenu';
 
 function AppBarComponent(props) {
   const {
-    classes, activeChat, isConnected, activeUser, editUser, logout,
+    classes,
+    activeChat,
+    isConnected,
+    activeUser,
+    editUser,
+    logout,
   } = props;
   return (
     <React.Fragment>
@@ -22,7 +27,6 @@ function AppBarComponent(props) {
         <Toolbar>
           {activeChat && (
             <React.Fragment>
-
               <AvatarComponent name={activeChat.title} />
               <Typography variant="h6" color="inherit" noWrap>
                 {activeChat.title}
@@ -35,7 +39,12 @@ function AppBarComponent(props) {
               </Typography>
             </React.Fragment>
           )}
-          <UserMenu editUser={editUser} activeUser={activeUser} logout={logout} disabled={!isConnected} />
+          <UserMenu
+            editUser={editUser}
+            activeUser={activeUser}
+            logout={logout}
+            disabled={!isConnected}
+          />
         </Toolbar>
       </AppBar>
     </React.Fragment>
@@ -64,4 +73,4 @@ AppBarComponent.defaultProps = {
   activeChat: null,
 };
 
-export default withStyles(styles)(AppBarComponent); 
+export default withStyles(styles)(AppBarComponent);

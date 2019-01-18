@@ -11,7 +11,9 @@ export const logIn = (log, pass) => async (dispatch, getState) => {
   const username = log;
   const password = pass;
   await http('/login', 'POST', { username, password })
-    .then((r) => { r.json(); })
+    .then((r) => {
+      r.json();
+    })
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -46,7 +48,9 @@ export const logout = () => async (dispatch, getState) => {
   const { token } = getState().auth;
 
   return await http('/logout', 'GET', null, token)
-    .then((r) => { r.json(); })
+    .then((r) => {
+      r.json();
+    })
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -55,7 +59,12 @@ export const logout = () => async (dispatch, getState) => {
         localStorage.removeItem('token');
       }
     })
-    .catch((e) => { console.log(e); });
+    .catch(e =>
+      dispatch({
+        type: TYPE.LOGOUT_FULFILLED,
+        payload: e,
+      }),
+    );
 };
 
 export const register = (log, pass) => async (dispatch, getState) => {
@@ -67,7 +76,9 @@ export const register = (log, pass) => async (dispatch, getState) => {
   const username = log;
   const password = pass;
   return await http('/signup', 'POST', { username, password })
-    .then((r) => { r.json(); })
+    .then((r) => {
+      r.json();
+    })
     .then((r) => {
       if (r.success) {
         dispatch({
@@ -104,7 +115,9 @@ export function recieveAuth() {
       return;
     }
     return http('/users/me', 'GET', null, token)
-      .then((r) => { r.json(); })
+      .then((r) => {
+        r.json();
+      })
       .then((r) => {
         dispatch({
           type: TYPE.RECIEVE_AUTH_FULFILLED,
@@ -133,8 +146,15 @@ export function editUser(username, firstName, lastName) {
       type: TYPE.EDIT_USER_REQUEST,
     });
 
-    return http('/users/me', 'POST', { data: { username, firstName, lastName } }, token)
-      .then((r) => { r.json(); })
+    return http(
+      '/users/me',
+      'POST',
+      { data: { username, firstName, lastName } },
+      token,
+    )
+      .then((r) => {
+        r.json();
+      })
       .then((r) => {
         dispatch({
           type: TYPE.EDIT_USER_FULFILLED,

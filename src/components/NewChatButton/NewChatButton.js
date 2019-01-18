@@ -24,15 +24,6 @@ class NewChatButton extends React.Component {
     },
   };
 
-  changeHandler = (e) => {
-    this.setState({
-      title: {
-        value: e.target.value,
-        valid: true,
-      },
-    });
-  };
-
   onCreateButton = () => {
     const { createChat } = this.props;
     const { title } = this.state;
@@ -49,6 +40,15 @@ class NewChatButton extends React.Component {
         },
       }).then(() => this.setState({ modal: false }));
     }
+  };
+
+  changeHandler = (e) => {
+    this.setState({
+      title: {
+        value: e.target.value,
+        valid: true,
+      },
+    });
   };
 
   render() {
@@ -88,8 +88,7 @@ class NewChatButton extends React.Component {
             />
             <Button onClick={this.onCreateButton} color="primary">
               {' '}
-              Create chat
-              {' '}
+              Create chat{' '}
             </Button>
           </Paper>
         </Modal>

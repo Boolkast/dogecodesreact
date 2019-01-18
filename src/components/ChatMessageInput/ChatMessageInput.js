@@ -63,16 +63,16 @@ class ChatMessageInput extends React.Component {
               disabled={disabled}
             />
           ) : (
-              <Button
-                disabled={disabled}
-                fullWidth
-                variant="raised"
-                color="primary"
-                onClick={joinChat}
-              >
-                Join chat
+            <Button
+              disabled={disabled}
+              fullWidth
+              variant="raised"
+              color="primary"
+              onClick={joinChat}
+            >
+              Join chat
             </Button>
-            )}
+          )}
         </Paper>
       </div>
     );

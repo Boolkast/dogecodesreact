@@ -94,20 +94,21 @@ export function fetchChat(id) {
 }
 
 export function setActiveChat(id) {
-  return dispatch => dispatch(fetchChat(id)).then((r) => {
-    if (!r) {
-      dispatch(redirect('/chat'));
-      return dispatch({
-        type: types.UNSET_ACTIVE_CHAT,
-      });
-    }
+  return dispatch =>
+    dispatch(fetchChat(id)).then((r) => {
+      if (!r) {
+        dispatch(redirect('/chat'));
+        return dispatch({
+          type: types.UNSET_ACTIVE_CHAT,
+        });
+      }
 
-    dispatch({
-      type: types.SET_ACTIVE_CHAT,
-      payload: r,
+      dispatch({
+        type: types.SET_ACTIVE_CHAT,
+        payload: r,
+      });
+      return dispatch(redirect(`/chat/${r.chat._id}`));
     });
-    return dispatch(redirect(`/chat/${r.chat._id}`));
-  });
 }
 
 export function createChat(title) {
@@ -134,7 +135,12 @@ export function createChat(title) {
           dispatch(redirect(`/chat/${r.chat._id}`));
         }
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        dispatch({
+          type: types.CREATE_CHAT_REJECT,
+          payload: e,
+        }),
+      );
   };
 }
 export function joinChat() {
@@ -161,12 +167,16 @@ export function joinChat() {
           dispatch(redirect(`/chat/${id}`));
         }
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        dispatch({
+          type: types.JOIN_CHAT_REJECT,
+          payload: e,
+        }),
+      );
   };
 }
 export function leaveChat(id) {
   return (dispatch, getState) => {
-
     const { isFetching } = getState().services;
 
     if (isFetching.leaveChat) {
@@ -188,7 +198,12 @@ export function leaveChat(id) {
           });
         }
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        dispatch({
+          type: types.LEAVE_CHAT_REJECT,
+          payload: e,
+        }),
+      );
   };
 }
 export function deleteChat(id) {
@@ -214,6 +229,11 @@ export function deleteChat(id) {
           });
         }
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        dispatch({
+          type: types.DELETE_CHAT_REJECT,
+          payload: e,
+        }),
+      );
   };
 }

@@ -4,7 +4,10 @@ import { fetchAllChats, fetchMyChats, setActiveChat } from '../actions/chats';
 import * as fromChats from '../reducers/chatReducer';
 import * as fromState from '../reducers';
 import {
-  sendMessage, mountChat, unmountChat, socketsConnect,
+  sendMessage,
+  mountChat,
+  unmountChat,
+  socketsConnect,
 } from '../actions/sockets';
 
 import ChatPage from '../components/ChatPage/ChatPage';
@@ -24,23 +27,24 @@ const mapStateToProps = (state) => {
       isChatMember: fromState.isChatMember(state, activeChat),
     },
     messages: state.messages,
-    activeChat: activeChat,
-    isConnected: state.services.isConnected
+    activeChat,
+    isConnected: state.services.isConnected,
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(
-  {
-    fetchAllChats,
-    fetchMyChats,
-    setActiveChat,
-    sendMessage,
-    mountChat,
-    unmountChat,
-    socketsConnect,
-  },
-  dispatch,
-);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchAllChats,
+      fetchMyChats,
+      setActiveChat,
+      sendMessage,
+      mountChat,
+      unmountChat,
+      socketsConnect,
+    },
+    dispatch,
+  );
 
 export default connect(
   mapStateToProps,

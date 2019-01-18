@@ -43,7 +43,7 @@ export function socketsConnect() {
       });
     });
 
-    socket.on('connect_error', (e) => {
+    socket.on('connect_error', () => {
       dispatch({
         type: TYPE.SOCKETS_CONNECTION_REJECT,
         payload: new Error('We have lost a connection :('),

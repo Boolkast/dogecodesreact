@@ -19,6 +19,8 @@ class Auth extends Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     state: PropTypes.objectOf(PropTypes.string).isRequired,
+    register: PropTypes.func.isRequired,
+    logIn: PropTypes.func.isRequired,
   };
 
   state = {
@@ -67,9 +69,13 @@ class Auth extends Component {
 
   render() {
     const { classes, state } = this.props;
-    console.log(this.props)
     const {
-      tab, name, password, confPassword, isLoginComplete, isPassComplete,
+      tab,
+      name,
+      password,
+      confPassword,
+      isLoginComplete,
+      isPassComplete,
     } = this.state;
     return (
       <React.Fragment>
@@ -127,7 +133,9 @@ class Auth extends Component {
                   error={!isPassComplete}
                   autoComplete="current-password"
                   value={confPassword}
-                  onChange={e => this.handleChange('confPassword', e.target.value)}
+                  onChange={e =>
+                    this.handleChange('confPassword', e.target.value)
+                  }
                   margin="normal"
                 />
               )}

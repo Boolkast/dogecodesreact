@@ -54,7 +54,7 @@ class MessageList extends React.Component {
     if (messagesWrapper) {
       messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
     }
-  } 
+  }
 
   render() {
     const {
@@ -67,11 +67,9 @@ class MessageList extends React.Component {
       activeUser,
     } = this.props;
     return (
-      <div
-        className={classes.content}
-      >
+      <div className={classes.content}>
         <div className={classes.toolbar} />
-        <div className={classes.messagesContainer} ref='messageWraper'>
+        <div className={classes.messagesContainer} ref="messageWraper">
           {messages.map((item) => {
             const isMe = activeUser._id === item.sender._id;
             return (
@@ -83,7 +81,10 @@ class MessageList extends React.Component {
               >
                 {!isMe && <AvatarComponent name={item.sender.username} />}
                 <Paper
-                  className={classNames(classes.messages, isMe ? classes.messageFromMe : null)}
+                  className={classNames(
+                    classes.messages,
+                    isMe ? classes.messageFromMe : null,
+                  )}
                 >
                   <Typography variant="h5" component="h4">
                     {item.sender.username}

@@ -18,6 +18,6 @@ export const styles = theme => ({
     margin: 0,
   },
   chatlist: {
-    marginBottom: 40
-  }
+    marginBottom: 40,
+  },
 });

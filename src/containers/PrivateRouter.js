@@ -13,7 +13,7 @@ class PrivateRouter extends React.Component {
   };
 
   componentDidMount() {
-    const { recieveAuth } = this.props
+    const { recieveAuth } = this.props;
     recieveAuth();
   }
 
@@ -22,7 +22,9 @@ class PrivateRouter extends React.Component {
     return (
       <Route
         {...rest}
-        render={props => (isAuth ? <Component {...props} /> : <Redirect to="/" />)}
+        render={props =>
+          isAuth ? <Component {...props} /> : <Redirect to="/" />
+        }
       />
     );
   }
@@ -32,12 +34,13 @@ const mapStateToProps = state => ({
   isAuth: state.auth.isAuth,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(
-  {
-    recieveAuth,
-  },
-  dispatch,
-);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      recieveAuth,
+    },
+    dispatch,
+  );
 
 export default withRouter(
   connect(
